@@ -1,0 +1,95 @@
+<style>
+    #systemForm .layui-form-label {
+        width: 120px;
+    }
+
+    #systemForm .layui-input-block {
+        margin-left: 150px;
+    }
+</style>
+<!-- 正文开始 -->
+<form class="layui-form" id="systemForm" lay-filter="systemForm">
+    <div class="layui-fluid" style="padding-bottom: 75px;">
+        <div class="layui-card">
+            <div class="layui-card-header" id="default">系统配置</div>
+            <div class="layui-card-body">
+                <div class="layui-form-item">
+                    <label class="layui-form-label layui-form-required">系统名称:</label>
+                    <div class="layui-input-block">
+                        <input name="author" placeholder="请输入系统名称" class="layui-input"
+                               lay-verType="tips" lay-verify="required" required/>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label layui-form-required">版权信息:</label>
+                    <div class="layui-input-block">
+                        <input name="service_package" placeholder="请输入版权信息" class="layui-input"
+                               lay-verType="tips" lay-verify="required" required/>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label layui-form-required">版本号:</label>
+                    <div class="layui-input-block">
+                        <input name="service_impl_package" placeholder="请输入版本号" class="layui-input"
+                               lay-verType="tips" lay-verify="required" required/>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-filter="generateSubmit" lay-submit=""> 保存 </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript" data-th-inline="none">
+    layui.use(['layer', 'form'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var generate = {
+            groupKey: 'generate',
+            dictName: '代码生成'
+        };
+
+        formVal('/dict/map', generate);
+
+        /* 恢复默认值 */
+        $("#default").dblclick(function () {
+            formVal('/json/generate.json')
+        });
+
+        /* 表单填充 */
+        function formVal(url, data) {
+            var loadIndex = layer.load(2);
+            $.get(url, data ? data : {},
+                function (res) {
+                    layer.close(loadIndex);
+                    if (res.code === 200) {
+                        form.val("generateForm", res.data);
+                    } else {
+                        layer.msg(data ? res.msg : '默认配置丢失', {icon: 2});
+                    }
+                }
+            );
+        }
+
+        /* 表单提交 */
+        form.on('submit(generateSubmit)', function (data) {
+            generate.dictJson = JSON.stringify(data.field);
+            $.post("/dict/json", generate, function (res) {
+                if (res.code === 200) {
+                    layer.msg('配置已更新', {icon: 1});
+                } else {
+                    layer.msg(res.msg, {icon: 2});
+                }
+            });
+            return false;
+        });
+    });
+</script>

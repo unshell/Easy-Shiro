@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unshell.easyshiro.system.mapper.MenuMapper">
+    <select id="queryManagerPermissions" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT m.Perms
+        FROM system_manager u
+        LEFT JOIN system_role r ON ( r.RoleId = u.RoleId )
+        LEFT JOIN system_role_menu rm ON ( rm.RoleId = r.RoleId )
+        LEFT JOIN system_menu m ON ( m.MenuId = rm.MenuId )
+        WHERE u.LoginName = #{loginName}
+        AND m.Perms IS NOT NULL
+        AND m.Perms &lt;&gt; ''
+    </select>
+
+    <select id="queryManagerMenuTrees" parameterType="java.lang.String" resultType="MenuTree">
+        SELECT m.MenuId AS Id, m.ParentId, m.`Name`, m.Url, m.Icon
+        FROM system_menu m
+        WHERE m.Type &lt;&gt; 1
+        AND m.MenuId IN (SELECT DISTINCT rm.MenuId FROM system_role_menu rm
+        LEFT JOIN system_manager u ON ( u.RoleId = rm.RoleId ) WHERE u.LoginName = #{loginName} )
+        ORDER BY m.Sort
+    </select>
+</mapper>

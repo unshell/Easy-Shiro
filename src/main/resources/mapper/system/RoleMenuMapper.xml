@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unshell.easyshiro.system.mapper.RoleMenuMapper">
+    <select id="queryPermissionsTreeByRoleId" parameterType="java.lang.Integer"
+            resultType="com.unshell.easyshiro.system.entity.extend.RoleMenuTree">
+        SELECT
+            m.MenuId AS id,
+            m.ParentId AS pId,
+            CONCAT_WS( ' ', m.Name, m.Perms ) AS name,
+            1 AS open,
+            ( SELECT COUNT(1) FROM system_role_menu AS rm WHERE rm.RoleId = #{roleId} AND rm.MenuId = m.MenuId ) AS checked
+        FROM
+            system_menu m
+    </select>
+
+    <insert id="insertRoleMenuByRoleId">
+        INSERT INTO system_role_menu (RoleId,MenuId) VALUES
+        <foreach collection="menuIds" item="menuId" index="index" separator=",">
+            (#{roleId} , #{menuId})
+        </foreach>
+    </insert>
+
+    <delete id="deleteRoleMenuByRoleId" parameterType="java.lang.Integer">
+        DELETE FROM system_role_menu
+        WHERE RoleId = #{roleId}
+    </delete>
+</mapper>

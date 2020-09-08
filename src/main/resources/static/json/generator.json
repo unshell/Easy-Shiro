@@ -1,0 +1,14 @@
+{
+  "code": 200,
+  "data": {
+    "author": "Author",
+    "base_package": "com.unshell.easyshiro.example",
+    "entity_package": "entity",
+    "mapper_package": "mapper",
+    "service_package": "service",
+    "service_impl_package": "service.impl",
+    "controller_package": "controller",
+    "is_trim": "0",
+    "trim_value": "example_"
+  }
+}

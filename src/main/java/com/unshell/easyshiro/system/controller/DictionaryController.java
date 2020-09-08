@@ -1,0 +1,135 @@
+package com.unshell.easyshiro.system.controller;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.unshell.easyshiro.common.annotation.ControllerEndpoint;
+import com.unshell.easyshiro.common.controller.BaseController;
+import com.unshell.easyshiro.common.entity.EasyResponse;
+import com.unshell.easyshiro.common.entity.QueryRequest;
+import com.unshell.easyshiro.system.entity.Dictionary;
+import com.unshell.easyshiro.system.service.IDictionaryService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+@RestController
+@RequestMapping("/dict")
+@RequiredArgsConstructor
+public class DictionaryController extends BaseController {
+    private final IDictionaryService dictionaryService;
+
+    /**
+     * 字典分页信息
+     *
+     * @param request
+     * @param dictionary
+     * @return
+     */
+    @GetMapping("page")
+    public EasyResponse dictionaryPage(QueryRequest request, Dictionary dictionary) {
+        IPage<Dictionary> page = dictionaryService.queryDictionaryPage(request, dictionary);
+        return new EasyResponse().table(page);
+    }
+
+    /**
+     * 字典组关联的字典项信息
+     *
+     * @param groupKey 字典组键
+     * @return
+     */
+    @GetMapping("map")
+    public EasyResponse dictionaryMap(String groupKey) {
+        Map<String, String> maps = dictionaryService.queryDictionaryMap(groupKey);
+        return new EasyResponse().success().data(maps);
+    }
+
+    /**
+     * 字典组信息
+     *
+     * @return
+     */
+    @GetMapping("group")
+    public EasyResponse dictionaryGroup(Dictionary dictionary) {
+        List<Dictionary> group = dictionaryService.queryDictionaryGroupList(dictionary);
+        return new EasyResponse().put("code", 0).data(group);
+    }
+
+    /**
+     * 创建字典
+     *
+     * @param dictionary
+     * @return
+     */
+    @PostMapping("add")
+    @ControllerEndpoint(operation = "创建了字典")
+    public EasyResponse dictAdd(Dictionary dictionary) {
+        dictionaryService.insertDictionary(dictionary);
+        return new EasyResponse().success().message("字典创建成功");
+    }
+
+    /**
+     * 更新字典
+     *
+     * @param dictionary
+     * @return
+     */
+    @PostMapping("update")
+    @ControllerEndpoint(operation = "更新了字典")
+    public EasyResponse dictUpdate(Dictionary dictionary) {
+        dictionaryService.updateDictionary(dictionary);
+        return new EasyResponse().success().message("更新字典成功");
+    }
+
+    /**
+     * 更新字典项配置
+     *
+     * @param groupKey
+     * @param dictJson
+     * @return
+     * @throws JsonProcessingException
+     */
+    @PostMapping("json")
+    public EasyResponse dictUpdate(String dictName, String groupKey, String dictJson) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, String> map = mapper.readValue(dictJson, Map.class);
+
+        Dictionary group = dictionaryService.queryDictionary(groupKey, true);
+        if (group == null) {
+            group = new Dictionary(dictName, groupKey);
+            group.setSign(groupKey);
+            dictionaryService.insertDictionary(group);
+        }
+        dictionaryService.updateDictionaryMap(group, map);
+        return new EasyResponse().success().data(map);
+    }
+
+    /**
+     * 删除字典组
+     *
+     * @param dictId 主键
+     * @return
+     */
+    @PostMapping("group/delete")
+    @ControllerEndpoint(operation = "删除了字典组")
+    public EasyResponse groupDelete(Integer dictId) {
+        dictionaryService.deleteDictionary(dictId);
+        return new EasyResponse().success().message("删除字典成功");
+    }
+
+    /**
+     * 删除字典项
+     *
+     * @param dictId 主键集
+     * @return
+     */
+    @PostMapping("delete")
+    @ControllerEndpoint(operation = "创建了字典项")
+    public EasyResponse dictDelete(@RequestParam(value = "dictId[]") Set<Integer> dictId) {
+        dictionaryService.deleteDictionary(dictId);
+        return new EasyResponse().success().message("删除字典成功");
+    }
+}

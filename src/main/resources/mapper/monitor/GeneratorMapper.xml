@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unshell.easyshiro.monitor.mapper.GeneratorMapper">
+    <!--查询数据库下面的表-->
+    <select id="getTables" resultType="Table" parameterType="java.lang.String">
+        SELECT
+        TABLE_NAME AS name,
+        TABLE_SCHEMA AS schemaName,
+        TABLE_COMMENT AS remark,
+        TABLE_ROWS AS dataRows,
+        UPDATE_TIME AS updateTime,
+        CREATE_TIME AS createTime
+        FROM
+        information_schema.TABLES
+        WHERE
+        TABLE_SCHEMA = #{schemaName}
+        <if test="tableName != null and tableName != ''">
+            AND TABLE_NAME = #{tableName}
+        </if>
+    </select>
+</mapper>
