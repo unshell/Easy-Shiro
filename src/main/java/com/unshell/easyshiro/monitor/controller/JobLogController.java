@@ -21,7 +21,6 @@ public class JobLogController {
      *
      * @param request
      * @param jobLog
-     * @return
      */
     @GetMapping("page")
     public EasyResponse jobLogPage(QueryRequest request, JobLog jobLog) {

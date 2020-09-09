@@ -32,7 +32,6 @@ public class RoleController {
      *
      * @param request
      * @param role
-     * @return
      */
     @GetMapping("page")
     @RequiresPermissions("role:view")
@@ -45,7 +44,6 @@ public class RoleController {
      * 创建角色
      *
      * @param role
-     * @return
      */
     @PostMapping("add")
     @RequiresPermissions("role:add")
@@ -59,7 +57,6 @@ public class RoleController {
      * 更新角色
      *
      * @param role
-     * @return
      */
     @PostMapping("update")
     @RequiresPermissions("role:update")
@@ -73,7 +70,6 @@ public class RoleController {
      * 删除角色
      *
      * @param id
-     * @return
      */
     @PostMapping("delete")
     @RequiresPermissions("role:delete")
@@ -87,7 +83,6 @@ public class RoleController {
      * 角色关联的权限列表
      *
      * @param id
-     * @return
      */
     @GetMapping("menu/tree")
     public EasyResponse roleMenuTree(Integer id) {
@@ -100,7 +95,6 @@ public class RoleController {
      *
      * @param roleId
      * @param menuIds
-     * @return
      */
     @PostMapping("menu/add")
     @RequiresPermissions("role:perms")

@@ -7,10 +7,12 @@ import com.unshell.easyshiro.common.controller.BaseController;
 import com.unshell.easyshiro.common.entity.EasyResponse;
 import com.unshell.easyshiro.common.entity.QueryRequest;
 import com.unshell.easyshiro.common.service.ValidateCodeService;
+import com.unshell.easyshiro.common.utils.EasyUtil;
 import com.unshell.easyshiro.monitor.entity.LoginLog;
 import com.unshell.easyshiro.monitor.service.ILoginLogService;
 import lombok.RequiredArgsConstructor;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.ExpiredSessionException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,7 +34,6 @@ public class LoginController extends BaseController {
      *
      * @param request
      * @param loginLog
-     * @return
      */
     @GetMapping("/login/log/page")
     public EasyResponse loginLogList(QueryRequest request, LoginLog loginLog) {
@@ -48,15 +49,17 @@ public class LoginController extends BaseController {
      * @param verifyCode 验证码
      * @param rememberMe 记住我
      * @param request
-     * @return
      */
     @PostMapping("/login")
-    @ControllerEndpoint(operation = "登录了系统", isPrivacy = true)
+    @ControllerEndpoint(operation = "登录了系统", isPrivacy = true, message = "登录异常")
     @Limit(name = "登录接口", period = 60, count = 10, key = "login", prefix = "limit")
     public EasyResponse login(@NotBlank(message = "账号不能为空") String loginName,
                               @NotBlank(message = "密码不能为空") String password,
                               @NotBlank(message = "验证码不能为空") String verifyCode,
                               boolean rememberMe, HttpServletRequest request) {
+        if (!EasyUtil.isAjaxRequest(request)) {
+            throw new ExpiredSessionException("非Ajax请求");
+        }
         HttpSession session = request.getSession();
         validateCodeService.check(session.getId(), verifyCode);
         UsernamePasswordToken token = new UsernamePasswordToken(loginName, password, rememberMe);

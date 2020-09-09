@@ -26,7 +26,6 @@ public class GeneratorController extends BaseController {
      * @param request
      * @param tableName
      * @param datasource
-     * @return
      */
     @GetMapping("table/page")
     public EasyResponse queryTables(QueryRequest request, String tableName, String datasource) {
@@ -40,7 +39,6 @@ public class GeneratorController extends BaseController {
      * @param module
      * @param datasource
      * @param tableNames
-     * @return
      */
     @PostMapping("generate")
     public EasyResponse generateTables(String module, String datasource, String tableNames) {

@@ -16,8 +16,6 @@ public class ViewController extends BaseController {
 
     /**
      * 操作日志视图
-     *
-     * @return
      */
     @GetMapping("/monitor/log")
     public String logView() {
@@ -26,8 +24,6 @@ public class ViewController extends BaseController {
 
     /**
      * 登录日志视图
-     *
-     * @return
      */
     @GetMapping("/monitor/login/log")
     public String loginLogView() {
@@ -36,8 +32,6 @@ public class ViewController extends BaseController {
 
     /**
      * 任务调度视图
-     *
-     * @return
      */
     @GetMapping("/monitor/job")
     public String jobView() {
@@ -46,8 +40,6 @@ public class ViewController extends BaseController {
 
     /**
      * 任务调度日志视图
-     *
-     * @return
      */
     @GetMapping("/monitor/job/log")
     public String jobLogView() {
@@ -56,8 +48,6 @@ public class ViewController extends BaseController {
 
     /**
      * 代码生成视图
-     *
-     * @return
      */
     @GetMapping("/monitor/generate")
     public String generateView(Model model) {

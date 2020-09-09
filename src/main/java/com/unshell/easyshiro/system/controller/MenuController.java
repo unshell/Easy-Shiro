@@ -26,8 +26,6 @@ public class MenuController extends BaseController {
 
     /**
      * 菜单列表数据
-     *
-     * @return
      */
     @GetMapping("list")
     @RequiresPermissions("menu:view")
@@ -40,7 +38,6 @@ public class MenuController extends BaseController {
      * 获取系统用户菜单
      *
      * @param loginName 登录名
-     * @return
      */
     @GetMapping("{loginName}")
     public EasyResponse managerMenus(@NotBlank(message = "{required}") @PathVariable String loginName) {
@@ -56,7 +53,6 @@ public class MenuController extends BaseController {
      * 创建菜单
      *
      * @param menu
-     * @return
      */
     @PostMapping("add")
     @RequiresPermissions("menu:add")
@@ -70,7 +66,6 @@ public class MenuController extends BaseController {
      * 更新菜单
      *
      * @param menu
-     * @return
      */
     @PostMapping("update")
     @RequiresPermissions("menu:update")
@@ -84,7 +79,6 @@ public class MenuController extends BaseController {
      * 删除菜单
      *
      * @param id
-     * @return
      */
     @PostMapping("delete")
     @RequiresPermissions("menu:delete")

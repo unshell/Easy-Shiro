@@ -211,16 +211,21 @@
                     form.on('submit(menu-edit-submit)', function (data) {
                         data.field.parentId = insXmSel.getValue('valueStr');
                         var loadIndex = layer.load(2);
-                        $.post(mData ? '/menu/update' : '/menu/add', data.field, function (res) {
-                            layer.close(loadIndex);
-                            if (res.code === 200) {
-                                layer.close(dIndex);
-                                layer.msg(res.msg, {icon: 1});
-                                insTb.refresh();
-                            } else {
-                                layer.msg(res.msg, {icon: 2});
+                        admin.ajax({
+                            url: mData ? '/menu/update' : '/menu/add',
+                            type: 'post',
+                            data: data.field,
+                            success: function (res) {
+                                layer.close(loadIndex);
+                                if (res.code === 200) {
+                                    layer.close(dIndex);
+                                    layer.msg(res.msg, {icon: 1});
+                                    insTb.refresh();
+                                } else {
+                                    layer.msg(res.msg, {icon: 2});
+                                }
                             }
-                        }, 'json');
+                        });
                         return false;
                     });
                     // 渲染下拉树
@@ -260,15 +265,20 @@
             }, function (i) {
                 layer.close(i);
                 var loadIndex = layer.load(2);
-                $.post('/menu/delete', {id: obj.ids}, function (res) {
-                    layer.close(loadIndex);
-                    if (res.code === 200) {
-                        layer.msg(res.msg, {icon: 1});
-                        insTb.refresh();
-                    } else {
-                        layer.msg(res.msg, {icon: 2});
+                admin.ajax({
+                    url: '/menu/delete',
+                    type: 'post',
+                    data: {id: obj.ids},
+                    success: function (res) {
+                        layer.close(loadIndex);
+                        if (res.code === 200) {
+                            layer.msg(res.msg, {icon: 1});
+                            insTb.refresh();
+                        } else {
+                            layer.msg(res.msg, {icon: 2});
+                        }
                     }
-                }, 'json');
+                });
             });
         }
 

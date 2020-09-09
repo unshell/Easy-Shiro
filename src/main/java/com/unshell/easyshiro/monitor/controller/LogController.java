@@ -22,7 +22,6 @@ public class LogController extends BaseController {
      *
      * @param request
      * @param log
-     * @return
      */
     @GetMapping("page")
     public EasyResponse logPage(QueryRequest request, Log log) {

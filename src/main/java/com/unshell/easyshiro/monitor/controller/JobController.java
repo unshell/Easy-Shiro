@@ -23,7 +23,6 @@ public class JobController extends BaseController {
      *
      * @param request
      * @param job
-     * @return
      */
     @GetMapping("page")
     public EasyResponse jobPage(QueryRequest request, Job job) {
@@ -35,7 +34,6 @@ public class JobController extends BaseController {
      * 添加任务
      *
      * @param job
-     * @return
      */
     @PostMapping("add")
     @ControllerEndpoint(operation = "创建了定时任务")
@@ -48,7 +46,6 @@ public class JobController extends BaseController {
      * 更新任务
      *
      * @param job
-     * @return
      */
     @PostMapping("update")
     @ControllerEndpoint(operation = "更新了定时任务")
@@ -61,7 +58,6 @@ public class JobController extends BaseController {
      * 执行任务
      *
      * @param jobId
-     * @return
      */
     @GetMapping("run/{jobId}")
     @ControllerEndpoint(operation = "执行了定时任务")
@@ -74,7 +70,6 @@ public class JobController extends BaseController {
      * 暂停任务
      *
      * @param jobId
-     * @return
      */
     @GetMapping("pause/{jobId}")
     @ControllerEndpoint(operation = "停止了定时任务")
@@ -87,7 +82,6 @@ public class JobController extends BaseController {
      * 恢复任务
      *
      * @param jobId
-     * @return
      */
     @GetMapping("resume/{jobId}")
     @ControllerEndpoint(operation = "恢复了定时任务")

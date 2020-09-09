@@ -27,7 +27,6 @@ public class DictionaryController extends BaseController {
      *
      * @param request
      * @param dictionary
-     * @return
      */
     @GetMapping("page")
     public EasyResponse dictionaryPage(QueryRequest request, Dictionary dictionary) {
@@ -39,7 +38,6 @@ public class DictionaryController extends BaseController {
      * 字典组关联的字典项信息
      *
      * @param groupKey 字典组键
-     * @return
      */
     @GetMapping("map")
     public EasyResponse dictionaryMap(String groupKey) {
@@ -49,8 +47,6 @@ public class DictionaryController extends BaseController {
 
     /**
      * 字典组信息
-     *
-     * @return
      */
     @GetMapping("group")
     public EasyResponse dictionaryGroup(Dictionary dictionary) {
@@ -62,7 +58,6 @@ public class DictionaryController extends BaseController {
      * 创建字典
      *
      * @param dictionary
-     * @return
      */
     @PostMapping("add")
     @ControllerEndpoint(operation = "创建了字典")
@@ -75,7 +70,6 @@ public class DictionaryController extends BaseController {
      * 更新字典
      *
      * @param dictionary
-     * @return
      */
     @PostMapping("update")
     @ControllerEndpoint(operation = "更新了字典")
@@ -89,7 +83,6 @@ public class DictionaryController extends BaseController {
      *
      * @param groupKey
      * @param dictJson
-     * @return
      * @throws JsonProcessingException
      */
     @PostMapping("json")
@@ -111,7 +104,6 @@ public class DictionaryController extends BaseController {
      * 删除字典组
      *
      * @param dictId 主键
-     * @return
      */
     @PostMapping("group/delete")
     @ControllerEndpoint(operation = "删除了字典组")
@@ -124,7 +116,6 @@ public class DictionaryController extends BaseController {
      * 删除字典项
      *
      * @param dictId 主键集
-     * @return
      */
     @PostMapping("delete")
     @ControllerEndpoint(operation = "创建了字典项")
