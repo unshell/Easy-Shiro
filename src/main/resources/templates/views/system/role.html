@@ -10,7 +10,7 @@
     <div class="layui-card">
         <div class="layui-card-body">
             <!-- 表格工具栏 -->
-            <form class="layui-form toolbar">
+            <form class="layui-form toolbar" autocomplete="off">
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">角色名:</label>
@@ -31,32 +31,32 @@
                         </div>
                     </div>
                     <div class="layui-inline">&emsp;
-                        <button class="layui-btn icon-btn" lay-filter="role-search" lay-submit>
+                        <button class="layui-btn icon-btn" lay-filter="roleSearch" lay-submit>
                             <i class="layui-icon">&#xe615;</i>搜索
                         </button>
                     </div>
                 </div>
             </form>
             <!-- 数据表格 -->
-            <table id="role-table" lay-filter="role-table"></table>
+            <table id="roleTable" lay-filter="roleTable"></table>
         </div>
     </div>
 </div>
 <!-- 表格操作列 -->
-<script type="text/html" id="role-tool">
+<script type="text/html" id="roleTool">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="auth">权限分配</a>
 </script>
 <!-- 表格工具栏 -->
-<script type="text/html" id="role-tool-bar">
+<script type="text/html" id="roleToolBar">
     <button lay-event="add" class="layui-btn layui-btn-sm icon-btn">
         <i class="layui-icon">&#xe654;</i>添加
     </button>
 </script>
 <!-- 表单弹窗 -->
-<script type="text/html" id="role-edit-dialog">
-    <form id="role-edit-form" lay-filter="role-edit-form" class="layui-form model-form">
+<script type="text/html" id="roleEditDialog">
+    <form id="roleEditForm" lay-filter="roleEditForm" class="layui-form model-form" autocomplete="off">
         <input name="roleId" type="hidden"/>
         <div class="layui-form-item">
             <label class="layui-form-label layui-form-required">角色名:</label>
@@ -79,7 +79,7 @@
             </div>
         </div>
         <div class="layui-form-item text-right">
-            <button class="layui-btn" lay-filter="role-edit-submit" lay-submit>保存</button>
+            <button class="layui-btn" lay-filter="roleEditSubmit" lay-submit>保存</button>
             <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
         </div>
     </form>
@@ -95,10 +95,10 @@
 
         /* 渲染表格 */
         var insTb = table.render({
-            elem: '#role-table',
+            elem: '#roleTable',
             url: '/role/page',
             page: true,
-            toolbar: '#role-tool-bar',
+            toolbar: '#roleToolBar',
             cellMinWidth: 100,
             cols: [[
                 {type: 'numbers'},
@@ -111,18 +111,18 @@
                     align: 'center',
                     sort: true
                 },
-                {title: '操作', toolbar: '#role-tool', align: 'center', minWidth: 200}
+                {title: '操作', toolbar: '#roleTool', align: 'center', minWidth: 200}
             ]]
         });
 
         /* 表格搜索 */
-        form.on('submit(role-search)', function (data) {
+        form.on('submit(roleSearch)', function (data) {
             insTb.reload({where: data.field, page: {curr: 1}});
             return false;
         });
 
         /* 表格工具条点击事件 */
-        table.on('tool(role-table)', function (obj) {
+        table.on('tool(roleTable)', function (obj) {
             if (obj.event === 'edit') { // 修改
                 showEditModel(obj.data);
             } else if (obj.event === 'del') { // 删除
@@ -133,7 +133,7 @@
         });
 
         /* 表格头工具栏点击事件 */
-        table.on('toolbar(role-table)', function (obj) {
+        table.on('toolbar(roleTable)', function (obj) {
             if (obj.event === 'add') { // 添加
                 showEditModel();
             }
@@ -144,12 +144,12 @@
             admin.open({
                 type: 1,
                 title: (mData ? '修改' : '添加') + '角色',
-                content: $('#role-edit-dialog').html(),
+                content: $('#roleEditDialog').html(),
                 success: function (layero, dIndex) {
                     // 回显表单数据
-                    form.val('role-edit-form', mData);
+                    form.val('roleEditForm', mData);
                     // 表单提交事件
-                    form.on('submit(role-edit-submit)', function (data) {
+                    form.on('submit(roleEditSubmit)', function (data) {
                         var loadIndex = layer.load(2);
                         admin.ajax({
                             url: mData ? '/role/update' : '/role/add',
@@ -233,7 +233,7 @@
                     }
                     var loadIndex = layer.load(2);
                     admin.ajax({
-                        url: '',
+                        url: '/role/menu/add',
                         type: 'post',
                         data: {roleId: roleId, menuIds: ids.join(',')},
                         success: function (res) {

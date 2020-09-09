@@ -10,7 +10,7 @@
     <div class="layui-card">
         <div class="layui-card-body">
             <!-- 表格工具栏 -->
-            <form class="layui-form toolbar">
+            <form class="layui-form toolbar" autocomplete="off">
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">账&emsp;号:</label>
@@ -56,7 +56,7 @@
 </script>
 <!-- 表单弹窗 -->
 <script type="text/html" id="userEditDialog">
-    <form id="userEditForm" lay-filter="userEditForm" class="layui-form model-form">
+    <form id="userEditForm" lay-filter="userEditForm" class="layui-form model-form" autocomplete="off">
         <input name="managerId" type="hidden"/>
         <div class="layui-form-item">
             <label class="layui-form-label layui-form-required">账号:</label>
@@ -85,7 +85,7 @@
             <label class="layui-form-label layui-form-required">手机号:</label>
             <div class="layui-input-block">
                 <input name="phone" placeholder="请输入手机号" class="layui-input"
-                       lay-verType="tips" lay-verify="required" required/>
+                       lay-verType="tips" lay-verify="required|phone" required/>
             </div>
         </div>
         <div class="layui-form-item">

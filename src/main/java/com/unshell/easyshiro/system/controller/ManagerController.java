@@ -110,11 +110,14 @@ public class ManagerController extends BaseController {
      * @param newPsw    新密码
      */
     @PostMapping("password/{loginName}")
-    @ControllerEndpoint(operation = "更新了系统用户密码")
+    @ControllerEndpoint(operation = "更新了系统用户密码", message = "更新密码异常")
     public EasyResponse changePassword(@NotBlank(message = "{required}") @PathVariable String loginName, String oldPsw, String newPsw) {
         Manager current = super.getCurrentManager();
         if (!StringUtils.equalsIgnoreCase(loginName, current.getLoginName())) {
             throw new RuntimeException("只有账号本人才能修改密码");
+        }
+        if (StringUtils.equalsIgnoreCase(oldPsw, newPsw)) {
+            throw new RuntimeException("新旧密码不能相同");
         }
         managerService.changePassword(current.getManagerId(), oldPsw, newPsw);
         super.logout();

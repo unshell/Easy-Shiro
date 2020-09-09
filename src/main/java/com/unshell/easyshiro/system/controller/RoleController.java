@@ -76,6 +76,7 @@ public class RoleController {
     @ControllerEndpoint(operation = "删除了角色")
     public EasyResponse deleteRole(Integer id) {
         roleService.deleteRole(id);
+        roleMenuService.deleteRoleMenuByRoleId(id);
         return new EasyResponse().success().message("角色删除成功");
     }
 

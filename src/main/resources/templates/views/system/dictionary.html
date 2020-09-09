@@ -36,7 +36,7 @@
             <div class="layui-card">
                 <div class="layui-card-body" style="padding: 10px;">
                     <!-- 字典组工具栏 -->
-                    <form class="layui-form toolbar">
+                    <form class="layui-form toolbar" autocomplete="off">
                         <div class="layui-form-item">
                             <div class="layui-inline" style="max-width: 140px;">
                                 <input name="dictName" class="layui-input" placeholder="输入字典组名称"/>
@@ -57,7 +57,7 @@
             <div class="layui-card">
                 <div class="layui-card-body" style="padding: 10px;">
                     <!-- 字典数据工具栏 -->
-                    <form class="layui-form toolbar">
+                    <form class="layui-form toolbar" autocomplete="off">
                         <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label">字典项名称:</label>
@@ -101,7 +101,7 @@
 
 <!-- 字典组表单弹窗 -->
 <script type="text/html" id="groupEditDialog">
-    <form id="groupEditForm" lay-filter="groupEditForm" class="layui-form model-form">
+    <form id="groupEditForm" lay-filter="groupEditForm" class="layui-form model-form" autocomplete="off">
         <input name="dictId" type="hidden"/>
         <div class="layui-form-item">
             <label class="layui-form-label layui-form-required">字典名称:</label>
@@ -149,7 +149,7 @@
 
 <!-- 字典项表单弹窗 -->
 <script type="text/html" id="dictEditDialog">
-    <form id="dictEditForm" lay-filter="dictEditForm" class="layui-form model-form" style="padding-left: 10px;">
+    <form id="dictEditForm" lay-filter="dictEditForm" class="layui-form model-form">
         <input name="dictId" type="hidden"/>
         <div class="layui-form-item">
             <label class="layui-form-label layui-form-required">字典项名称:</label>

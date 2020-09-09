@@ -10,57 +10,51 @@
     <div class="layui-card">
         <div class="layui-card-body">
             <!-- 表格工具栏 -->
-            <form class="layui-form toolbar">
+            <form class="layui-form toolbar" autocomplete="off">
                 <div class="layui-form-item">
                     <div class="layui-inline">
-                        <label class="layui-form-label">菜单名称:</label>
+                        <label class="layui-form-label">关键字:</label>
                         <div class="layui-input-inline">
-                            <input name="name" class="layui-input" placeholder="输入菜单名称"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">菜单url:</label>
-                        <div class="layui-input-inline">
-                            <input name="url" class="layui-input" placeholder="输入路由地址"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">权限标识:</label>
-                        <div class="layui-input-inline">
-                            <input name="perms" class="layui-input" placeholder="输入权限标识"/>
+                            <input name="keyword" class="layui-input" placeholder="输入关键字"/>
                         </div>
                     </div>
                     <div class="layui-inline">&emsp;
-                        <button class="layui-btn icon-btn" lay-filter="menu-search" lay-submit>
+                        <button class="layui-btn icon-btn" lay-filter="menuSearch" lay-submit>
                             <i class="layui-icon">&#xe615;</i>搜索
+                        </button>
+                        <button class="layui-btn icon-btn" id="btnExpandAll">
+                            <i class="layui-icon">&#xe625;</i>全部展开
+                        </button>
+                        <button class="layui-btn icon-btn" id="btnFoldAll">
+                            <i class="layui-icon">&#xe623;</i>全部折叠
                         </button>
                     </div>
                 </div>
             </form>
             <!-- 数据表格 -->
-            <table id="menu-table"></table>
+            <table id="menuTable"></table>
         </div>
     </div>
 </div>
 <!-- 表格操作列 -->
-<script type="text/html" id="menu-tool">
+<script type="text/html" id="menuTool">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
 </script>
 
-<script type="text/html" id="menu-tool-bar">
+<script type="text/html" id="menuToolBar">
     <a class="layui-btn layui-btn-sm icon-btn" lay-event="add"><i class="layui-icon">&#xe654;</i>添加</a>
     <a class="layui-btn layui-btn-sm layui-btn-danger icon-btn" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>
 <!-- 表单弹窗 -->
-<script type="text/html" id="menu-edit-dialog">
-    <form id="menu-edit-form" lay-filter="menu-edit-form" class="layui-form model-form"
+<script type="text/html" id="menuEditDialog">
+    <form id="menuEditForm" lay-filter="menuEditForm" class="layui-form model-form"
           style="padding-right: 20px;" autocomplete="off">
         <div class="layui-row">
             <div class="layui-col-md6">
                 <div class="layui-form-item">
                     <label class="layui-form-label">上级菜单</label>
                     <div class="layui-input-block">
-                        <div id="menu-parent-select" class="ew-xmselect-tree"></div>
+                        <div id="menuParentSelect" class="ew-xmselect-tree"></div>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -114,7 +108,7 @@
             </div>
         </div>
         <div class="layui-form-item text-right">
-            <button class="layui-btn" lay-filter="menu-edit-submit" lay-submit>保存</button>
+            <button class="layui-btn" lay-filter="menuEditSubmit" lay-submit>保存</button>
             <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
         </div>
     </form>
@@ -132,9 +126,9 @@
 
         // 渲染表格
         var insTb = treeTable.render({
-            elem: '#menu-table',
+            elem: '#menuTable',
             url: '/menu/list',
-            toolbar: '#menu-tool-bar',
+            toolbar: '#menuToolBar',
             tree: {
                 iconIndex: 2,
                 idName: 'menuId',
@@ -160,7 +154,7 @@
                 {
                     title: '创建时间', templet: '<p>{{layui.util.toDateString(d.createTime)}}</p>', align: 'center'
                 },
-                {title: '操作', templet: '#menu-tool', align: 'center', width: 120}
+                {title: '操作', templet: '#menuTool', align: 'center', width: 120}
             ],
             done: function (data) {
                 tbDataList = data;
@@ -168,14 +162,14 @@
         });
 
         /* 表格操作列点击事件 */
-        treeTable.on('tool(menu-table)', function (obj) {
+        treeTable.on('tool(menuTable)', function (obj) {
             if (obj.event === 'edit') { // 修改
                 showEditModel(obj.data);
             }
         });
 
         /* 表格头工具栏点击事件 */
-        treeTable.on('toolbar(menu-table)', function (obj) {
+        treeTable.on('toolbar(menuTable)', function (obj) {
             if (obj.event === 'add') { // 添加
                 showEditModel();
             } else if (obj.event === 'del') { // 删除
@@ -192,8 +186,23 @@
         });
 
         /* 表格搜索 */
-        form.on('submit(menu-search)', function (data) {
-            doTbSearch(data.field, 'menuId');
+        form.on('submit(menuSearch)', function (data) {
+            insTb.clearFilter();
+            if (data.field.keyword) {
+                insTb.filterData(data.field.keyword);
+            }
+            return false;
+        });
+
+        /* 全部展开 */
+        $('#btnExpandAll').click(function () {
+            insTb.expandAll();
+            return false;
+        });
+
+        /* 全部折叠 */
+        $('#btnFoldAll').click(function () {
+            insTb.foldAll();
             return false;
         });
 
@@ -203,12 +212,12 @@
                 type: 1,
                 area: '600px',
                 title: (mData ? '修改' : '添加') + '菜单',
-                content: $('#menu-edit-dialog').html(),
+                content: $('#menuEditDialog').html(),
                 success: function (layero, dIndex) {
                     // 回显表单数据
-                    form.val('menu-edit-form', mData);
+                    form.val('menuEditForm', mData);
                     // 表单提交事件
-                    form.on('submit(menu-edit-submit)', function (data) {
+                    form.on('submit(menuEditSubmit)', function (data) {
                         data.field.parentId = insXmSel.getValue('valueStr');
                         var loadIndex = layer.load(2);
                         admin.ajax({
@@ -230,7 +239,7 @@
                     });
                     // 渲染下拉树
                     var insXmSel = xmSelect.render({
-                        el: '#menu-parent-select',
+                        el: '#menuParentSelect',
                         height: '250px',
                         data: insTb.options.data,
                         initValue: mData ? [mData.parentId] : [],
@@ -280,29 +289,6 @@
                     }
                 });
             });
-        }
-
-        /* 搜索表格数据 */
-        function doTbSearch(field, idName) {
-            var ids = [], isClear = true;
-            for (var i = 0; i < tbDataList.length; i++) {
-                var item = tbDataList[i], flag = true;
-                for (var f in field) {
-                    if (!field.hasOwnProperty(f)) continue;
-                    if (!field[f]) continue;
-                    isClear = false;
-                    if (!item[f] || item[f].indexOf(field[f]) === -1) {
-                        flag = false;
-                        break;
-                    }
-                }
-                if (flag) ids.push(item[idName]);
-            }
-            if (isClear) {
-                insTb.clearFilter();
-            } else {
-                insTb.filterData(ids);
-            }
         }
     });
 </script>
