@@ -19,6 +19,9 @@ layui.config({  // common.js是配置layui扩展模块的目录，每个页面�
     var layer = layui.layer;
     var admin = layui.admin;
 
+    if (top.layui === layui) {
+        console.log("%c 让我们来调试看看有什么问题吧！ 🐤", "background: #fcf9ec;border: 2px solid #b0e0a8; padding:3px 0;");
+    }
 });
 
 /** 获取当前项目的根路径，通过获取layui.js全路径截取assets之前的地址 */

@@ -1,4 +1,29 @@
-<div class="layui-card-body" style="text-align: center;">
-    <h2 style="margin-top: 170px;margin-bottom: 20px;font-size: 28px;color: #91ADDC;">欢迎使用 EasyShiro 管理系统</h2>
-    <img src="/assets/images/welcome.png" style="max-width: 100%;">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>欢迎页面</title>
+    <head th:include="layout/common::head"></head>
+    <style>
+        h2 {
+            margin-top: 170px;
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #91ADDC;
+        }
+
+        .layui-card-body {
+            text-align: center;
+        }
+
+        .layui-card-body img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-card-body">
+    <h2 th:text="${'欢迎使用 '+@environment.getProperty('app.system').toUpperCase()+' 管理系统'}"></h2>
+    <img src="/assets/images/welcome.png">
 </div>
+</body>
+</html>

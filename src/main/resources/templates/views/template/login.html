@@ -1,19 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <script>if (window !== top) top.location.replace(location.href);</script>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="/assets/images/favicon.ico" rel="icon">
-    <title>登录</title>
-    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css"/>
-    <link rel="stylesheet" href="/assets/module/admin.css?v=318">
+    <title>用户登录</title>
+    <head th:include="layout/common::head"></head>
     <link rel="stylesheet" href="/assets/css/login.css">
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 <body>
 <div class="login-wrapper layui-anim layui-anim-scale layui-hide">
@@ -43,11 +34,8 @@
         </div>
     </form>
 </div>
-<div class="login-copyright">&copy; 2020 easyshiro.system</div>
-
-<!-- js部分 -->
-<script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
-<script type="text/javascript" src="/assets/js/common.js?v=318"></script>
+<div class="login-copyright" th:text="${'&copy; 2020 '+@environment.getProperty('app.website')}"></div>
+<body th:include="layout/common::javascript"></body>
 <script>
     layui.use(['layer', 'form'], function () {
         var $ = layui.jquery;

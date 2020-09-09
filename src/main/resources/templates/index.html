@@ -1,17 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="/assets/images/favicon.ico" rel="icon">
     <title>Easy后台管理系统</title>
-    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css"/>
-    <link rel="stylesheet" href="/assets/module/admin.css?v=318"/>
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <head th:include="layout/common::head"></head>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -19,7 +10,7 @@
     <div class="layui-header">
         <div class="layui-logo">
             <img src="/assets/images/logo.png"/>
-            <cite>&nbsp;UNSHELL SYSTEM</cite>
+            <cite th:text="${'&nbsp;'+@environment.getProperty('app.system').toUpperCase()}"></cite>
         </div>
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item" lay-unselect>
@@ -70,8 +61,10 @@
     <div class="layui-body"></div>
     <!-- 底部 -->
     <div class="layui-footer layui-text">
-        copyright © 2020 <a href="http://easyweb.vip" target="_blank">easyweb.vip</a> all rights reserved.
-        <span class="pull-right">Version 3.1.8</span>
+        copyright © 2020
+        <a target="_blank" th:href="${@environment.getProperty('app.website')}"
+           th:text="${@environment.getProperty('app.website')}"></a> all rights reserved.
+        <span class="pull-right" th:text="${'Version '+@environment.getProperty('app.version')}"></span>
     </div>
 </div>
 <!-- 侧边栏渲染模板 -->
@@ -95,9 +88,7 @@
     </dl>
     {{# } }}
 </script>
-<!-- js部分 -->
-<script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
-<script type="text/javascript" src="/assets/js/common.js?v=317"></script>
+<body th:include="layout/common::javascript"></body>
 <script type="text/javascript" data-th-inline="javascript">
     layui.use(['admin', 'index', 'laytpl', 'element'], function () {
         var $ = layui.jquery;
@@ -123,7 +114,6 @@
                         menuPath: 'welcome',
                         menuName: '<i class="layui-icon layui-icon-home"></i>'
                     });
-                    console.log("%c 让我们来调试看看有什么问题吧！ 🐤", "background: #fcf9ec;border: 2px solid #b0e0a8; padding:3px 0;");
                 } else {
                     console.error(res.msg);
                 }

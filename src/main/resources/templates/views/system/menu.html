@@ -1,16 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>菜单管理</title>
-    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css"/>
-    <link rel="stylesheet" href="/assets/module/admin.css?v=318"/>
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <head th:include="layout/common::head"></head>
 </head>
 <body>
 <!-- 正文开始 -->
@@ -50,7 +42,6 @@
         </div>
     </div>
 </div>
-
 <!-- 表格操作列 -->
 <script type="text/html" id="menu-tool">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
@@ -60,7 +51,6 @@
     <a class="layui-btn layui-btn-sm icon-btn" lay-event="add"><i class="layui-icon">&#xe654;</i>添加</a>
     <a class="layui-btn layui-btn-sm layui-btn-danger icon-btn" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
 </script>
-
 <!-- 表单弹窗 -->
 <script type="text/html" id="menu-edit-dialog">
     <form id="menu-edit-form" lay-filter="menu-edit-form" class="layui-form model-form"
@@ -129,9 +119,7 @@
         </div>
     </form>
 </script>
-<!-- js部分 -->
-<script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
-<script type="text/javascript" src="/assets/js/common.js?v=318"></script>
+<body th:include="layout/common::javascript"></body>
 <script type="text/javascript">
     layui.use(['layer', 'form', 'admin', 'treeTable', 'util', 'xmSelect'], function () {
         var $ = layui.jquery;
@@ -155,7 +143,7 @@
             },
             cols: [
                 {type: 'checkbox', fixed: 'left'},
-                {type: 'numbers', title: '#'},
+                {type: 'numbers'},
                 {field: 'name', title: '菜单名称', width: 300},
                 {field: 'url', title: '菜单url'},
                 {field: 'perms', title: '权限标识'},

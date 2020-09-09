@@ -21,3 +21,8 @@ mybatis-plus:
     jdbc-type-for-null: null
   global-config:
     banner: false
+
+app:
+  version: 3.1.8
+  website: easyshiro.system
+  system: easy shiro

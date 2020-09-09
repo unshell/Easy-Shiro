@@ -1,16 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>代码生成</title>
-    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css"/>
-    <link rel="stylesheet" href="/assets/module/admin.css"/>
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <head th:include="layout/common::head"></head>
 </head>
 <body>
 <!-- 正文开始 -->
@@ -56,10 +48,7 @@
         <i class="layui-icon">&#xe674;</i>生成
     </a>
 </script>
-
-<!-- js部分 -->
-<script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
-<script type="text/javascript" src="/assets/js/common.js"></script>
+<body th:include="layout/common::javascript"></body>
 <script type="text/javascript" data-th-inline="none">
     layui.use(['layer', 'form', 'table', 'admin', 'util'], function () {
         var layer = layui.layer;
@@ -81,7 +70,7 @@
             cellMinWidth: 100,
             cols: [[
                 {type: 'checkbox'},
-                {type: 'numbers', title: '#'},
+                {type: 'numbers'},
                 {field: 'name', title: '名称'},
                 {field: 'remark', title: '备注'},
                 {field: 'dataRows', title: '数据行数', sort: true},
