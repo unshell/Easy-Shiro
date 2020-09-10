@@ -1,3 +1,19 @@
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : localhost
+ Source Server Type    : MySQL
+ Source Server Version : 80016
+ Source Host           : localhost:3306
+ Source Schema         : easy_base
+
+ Target Server Type    : MySQL
+ Target Server Version : 80016
+ File Encoding         : 65001
+
+ Date: 10/09/2020 17:29:43
+*/
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -41,18 +57,6 @@ CREATE TABLE `monitor_job_log`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '调度日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of monitor_job_log
--- ----------------------------
-INSERT INTO `monitor_job_log` VALUES (1, 3, 'testTask', 'test1', '', 0, NULL, 2, '2020-07-27 15:55:21');
-INSERT INTO `monitor_job_log` VALUES (2, 3, 'testTask', 'test1', '', 0, NULL, 2, '2020-08-19 16:29:30');
-INSERT INTO `monitor_job_log` VALUES (3, 3, 'testTask', 'test1', '', 0, NULL, 1, '2020-08-19 16:29:40');
-INSERT INTO `monitor_job_log` VALUES (4, 3, 'testTask', 'test1', '', 0, NULL, 3, '2020-08-19 16:29:45');
-INSERT INTO `monitor_job_log` VALUES (5, 3, 'testTask', 'test1', '', 0, NULL, 4, '2020-08-19 16:29:50');
-INSERT INTO `monitor_job_log` VALUES (6, 3, 'testTask', 'test1', '', 0, NULL, 1, '2020-08-19 16:29:55');
-INSERT INTO `monitor_job_log` VALUES (7, 1, 'testTask', 'test', '1', 0, NULL, 2, '2020-08-19 16:30:15');
-INSERT INTO `monitor_job_log` VALUES (8, 1, 'testTask', 'test', '1', 0, NULL, 1, '2020-08-19 16:30:20');
-
--- ----------------------------
 -- Table structure for monitor_log
 -- ----------------------------
 DROP TABLE IF EXISTS `monitor_log`;
@@ -66,110 +70,7 @@ CREATE TABLE `monitor_log`  (
   `IpAddress` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'IP地址',
   `CreateTime` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 77 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '监控日志' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of monitor_log
--- ----------------------------
-INSERT INTO `monitor_log` VALUES (1, 'admin', '执行了定时任务', 'com.unshell.easyshiro.monitor.controller.JobController.runJob()', ' jobId: \"3\"', 19, '0:0:0:0:0:0:0:1', '2020-07-27 15:48:00');
-INSERT INTO `monitor_log` VALUES (2, 'admin', '执行了定时任务', 'com.unshell.easyshiro.monitor.controller.JobController.runJob()', ' jobId: \"3\"', 32, '0:0:0:0:0:0:0:1', '2020-07-27 15:55:21');
-INSERT INTO `monitor_log` VALUES (3, 'admin', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=2, parentId=null, name=监控调度, url=, icon=layui-icon layui-icon-engine, perms=, sort=2, type=0, createTime=null, open=true, disabled=null)\"', 35, '0:0:0:0:0:0:0:1', '2020-07-27 16:10:23');
-INSERT INTO `monitor_log` VALUES (4, 'admin', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=22, parentId=2, name=定时任务, url=/job/view, icon=, perms=, sort=1, type=0, createTime=null, open=true, disabled=null)\"', 6, '0:0:0:0:0:0:0:1', '2020-07-27 16:10:49');
-INSERT INTO `monitor_log` VALUES (5, 'admin', '删除了菜单', 'com.unshell.easyshiro.system.controller.MenuController.deleteMenu()', ' id: \"[4, 41]\"', 20, '0:0:0:0:0:0:0:1', '2020-07-27 16:19:46');
-INSERT INTO `monitor_log` VALUES (6, 'admin', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=22, parentId=2, name=定时任务, url=/monitor/job, icon=, perms=, sort=3, type=0, createTime=null, open=true, disabled=null)\"', 25, '0:0:0:0:0:0:0:1', '2020-07-27 16:32:34');
-INSERT INTO `monitor_log` VALUES (7, 'admin', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=23, parentId=2, name=调度日志, url=/monitor/job/log, icon=, perms=, sort=4, type=0, createTime=null, open=true, disabled=null)\"', 16, '0:0:0:0:0:0:0:1', '2020-07-27 16:32:38');
-INSERT INTO `monitor_log` VALUES (8, 'admin', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=31, parentId=3, name=生成配置, url=/configure/generator, icon=, perms=, sort=2, type=0, createTime=null, open=true, disabled=null)\"', 25, '0:0:0:0:0:0:0:1', '2020-07-27 16:45:12');
-INSERT INTO `monitor_log` VALUES (9, 'admin', '登录了系统', 'com.unshell.easyshiro.monitor.controller.LoginController.login()', '参数内容涉及隐私部分', 112, '0:0:0:0:0:0:0:1', '2020-08-18 11:44:04');
-INSERT INTO `monitor_log` VALUES (10, 'admin', '删除了菜单', 'com.unshell.easyshiro.system.controller.MenuController.deleteMenu()', ' id: \"[3, 30, 31]\"', 46, '0:0:0:0:0:0:0:1', '2020-08-18 17:37:37');
-INSERT INTO `monitor_log` VALUES (11, 'admin', '创建了菜单', 'com.unshell.easyshiro.system.controller.MenuController.addMenu()', ' menu: \"Menu(menuId=24, parentId=2, name=代码生成, url=/, icon=, perms=, sort=5, type=0, createTime=Tue Aug 18 17:38:48 CST 2020, open=true, disabled=null)\"', 29, '0:0:0:0:0:0:0:1', '2020-08-18 17:38:49');
-INSERT INTO `monitor_log` VALUES (12, 'admin', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu()', ' menu: \"Menu(menuId=24, parentId=2, name=代码生成, url=/monitor/generate, icon=, perms=, sort=5, type=0, createTime=null, open=true, disabled=null)\"', 18, '0:0:0:0:0:0:0:1', '2020-08-18 17:40:40');
-INSERT INTO `monitor_log` VALUES (13, 'admin', '登录了系统', 'com.unshell.easyshiro.monitor.controller.LoginController.login()', '参数内容涉及隐私部分', 102, '0:0:0:0:0:0:0:1', '2020-08-19 14:42:06');
-INSERT INTO `monitor_log` VALUES (14, 'admin', '更新了定时任务', 'com.unshell.easyshiro.monitor.controller.JobController.updateJob', ' job: \"Job(jobId=3, beanName=testTask, methodName=test1, params=, cronExpression=0/5 * * * * ?, status=1, remark=调度无参方法, createTime=null)\"', 78, '0:0:0:0:0:0:0:1', '2020-08-19 16:29:26');
-INSERT INTO `monitor_log` VALUES (15, 'admin', '执行了定时任务', 'com.unshell.easyshiro.monitor.controller.JobController.runJob', ' jobId: \"3\"', 30, '0:0:0:0:0:0:0:1', '2020-08-19 16:29:30');
-INSERT INTO `monitor_log` VALUES (16, 'admin', '恢复了定时任务', 'com.unshell.easyshiro.monitor.controller.JobController.resumeJob', ' jobId: \"3\"', 36, '0:0:0:0:0:0:0:1', '2020-08-19 16:29:39');
-INSERT INTO `monitor_log` VALUES (17, 'admin', '停止了定时任务', 'com.unshell.easyshiro.monitor.controller.JobController.pauseJob', ' jobId: \"3\"', 39, '0:0:0:0:0:0:0:1', '2020-08-19 16:29:55');
-INSERT INTO `monitor_log` VALUES (18, 'admin', '恢复了定时任务', 'com.unshell.easyshiro.monitor.controller.JobController.resumeJob', ' jobId: \"1\"', 38, '0:0:0:0:0:0:0:1', '2020-08-19 16:30:14');
-INSERT INTO `monitor_log` VALUES (19, 'admin', '停止了定时任务', 'com.unshell.easyshiro.monitor.controller.JobController.pauseJob', ' jobId: \"1\"', 31, '0:0:0:0:0:0:0:1', '2020-08-19 16:30:23');
-INSERT INTO `monitor_log` VALUES (20, 'admin', '创建了菜单', 'com.unshell.easyshiro.system.controller.MenuController.addMenu', ' menu: \"Menu(menuId=3, parentId=-1, name=HomePage, url=, icon=, perms=, sort=1, type=0, createTime=Wed Aug 19 16:52:03 CST 2020, open=true, disabled=null)\"', 30, '0:0:0:0:0:0:0:1', '2020-08-19 16:52:03');
-INSERT INTO `monitor_log` VALUES (21, 'admin', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu', ' menu: \"Menu(menuId=3, parentId=null, name=HomePage, url=, icon=layui-icon layui-icon-home, perms=, sort=1, type=0, createTime=null, open=true, disabled=null)\"', 16, '0:0:0:0:0:0:0:1', '2020-08-19 16:52:41');
-INSERT INTO `monitor_log` VALUES (22, 'admin', '创建了菜单', 'com.unshell.easyshiro.system.controller.MenuController.addMenu', ' menu: \"Menu(menuId=31, parentId=3, name=欢迎页, url=/welcome, icon=, perms=, sort=1, type=1, createTime=Wed Aug 19 16:53:47 CST 2020, open=true, disabled=null)\"', 17, '0:0:0:0:0:0:0:1', '2020-08-19 16:53:47');
-INSERT INTO `monitor_log` VALUES (23, 'admin', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu', ' menu: \"Menu(menuId=31, parentId=3, name=欢迎页, url=/welcome, icon=, perms=, sort=1, type=0, createTime=null, open=true, disabled=null)\"', 14, '0:0:0:0:0:0:0:1', '2020-08-19 16:53:54');
-INSERT INTO `monitor_log` VALUES (24, 'admin', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu', ' menu: \"Menu(menuId=31, parentId=3, name=欢迎页, url=welcome, icon=, perms=, sort=1, type=0, createTime=null, open=true, disabled=null)\"', 28, '0:0:0:0:0:0:0:1', '2020-08-19 16:55:09');
-INSERT INTO `monitor_log` VALUES (25, 'admin', '退出了系统', 'com.unshell.easyshiro.system.controller.ViewController.logoutSystem', '', 7, '0:0:0:0:0:0:0:1', '2020-08-20 09:02:56');
-INSERT INTO `monitor_log` VALUES (26, 'admin', '登录了系统', 'com.unshell.easyshiro.monitor.controller.LoginController.login', '参数内容涉及隐私部分', 84, '0:0:0:0:0:0:0:1', '2020-08-20 09:03:03');
-INSERT INTO `monitor_log` VALUES (27, 'admin', '退出了系统', 'com.unshell.easyshiro.system.controller.ViewController.logoutSystem', '', 8, '0:0:0:0:0:0:0:1', '2020-08-20 09:11:35');
-INSERT INTO `monitor_log` VALUES (28, 'admin', '登录了系统', 'com.unshell.easyshiro.monitor.controller.LoginController.login', '参数内容涉及隐私部分', 93, '0:0:0:0:0:0:0:1', '2020-08-20 09:11:46');
-INSERT INTO `monitor_log` VALUES (29, 'admin', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu', ' menu: \"Menu(menuId=2, parentId=null, name=监控调度, url=, icon=layui-icon layui-icon-engine, perms=, sort=3, type=0, createTime=null, open=true, disabled=null)\"', 27, '0:0:0:0:0:0:0:1', '2020-08-20 09:48:38');
-INSERT INTO `monitor_log` VALUES (30, 'admin', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu', ' menu: \"Menu(menuId=1, parentId=null, name=系统管理, url=, icon=layui-icon layui-icon-senior, perms=, sort=2, type=0, createTime=null, open=true, disabled=null)\"', 14, '0:0:0:0:0:0:0:1', '2020-08-20 09:48:41');
-INSERT INTO `monitor_log` VALUES (31, 'admin', '更新了系统用户', 'com.unshell.easyshiro.system.controller.ManagerController.updateUser', ' manager: \"Manager(managerId=2, loginName=null, password=null, nickName=亚历克斯, avatar=null, phone=12345678910, email=alex@qq.com, address=null, status=null, tags=null, signature=null, roleId=2, introduction=null, modifyTime=Thu Aug 20 10:00:43 CST 2020, createTime=null)\"', 33, '0:0:0:0:0:0:0:1', '2020-08-20 10:00:43');
-INSERT INTO `monitor_log` VALUES (32, 'admin', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu', ' menu: \"Menu(menuId=1003, parentId=10, name=修改用户, url=, icon=, perms=manager:update, sort=3, type=1, createTime=null, open=true, disabled=null)\"', 16, '0:0:0:0:0:0:0:1', '2020-08-20 10:02:32');
-INSERT INTO `monitor_log` VALUES (33, 'admin', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu', ' menu: \"Menu(menuId=1102, parentId=11, name=添加角色, url=, icon=, perms=role:add, sort=2, type=1, createTime=null, open=true, disabled=null)\"', 15, '0:0:0:0:0:0:0:1', '2020-08-20 10:02:44');
-INSERT INTO `monitor_log` VALUES (34, 'admin', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu', ' menu: \"Menu(menuId=1103, parentId=11, name=修改角色, url=, icon=, perms=role:update, sort=3, type=1, createTime=null, open=true, disabled=null)\"', 13, '0:0:0:0:0:0:0:1', '2020-08-20 10:02:51');
-INSERT INTO `monitor_log` VALUES (35, 'admin', '创建了菜单', 'com.unshell.easyshiro.system.controller.MenuController.addMenu', ' menu: \"Menu(menuId=1005, parentId=10, name=重置密码, url=, icon=, perms=manager:reset, sort=5, type=0, createTime=Thu Aug 20 10:08:55 CST 2020, open=true, disabled=null)\"', 17, '0:0:0:0:0:0:0:1', '2020-08-20 10:08:56');
-INSERT INTO `monitor_log` VALUES (36, 'admin', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu', ' menu: \"Menu(menuId=1005, parentId=10, name=重置密码, url=, icon=, perms=manager:reset, sort=5, type=1, createTime=null, open=true, disabled=null)\"', 14, '0:0:0:0:0:0:0:1', '2020-08-20 10:09:01');
-INSERT INTO `monitor_log` VALUES (37, 'admin', '更新了系统用户', 'com.unshell.easyshiro.system.controller.ManagerController.updateUser', ' manager: \"Manager(managerId=2, loginName=null, password=null, nickName=亚历克斯, avatar=null, phone=12345678910, email=alex@qq.com, address=null, status=null, tags=null, signature=null, roleId=2, introduction=null, modifyTime=Thu Aug 20 10:24:35 CST 2020, createTime=null)\"', 19, '0:0:0:0:0:0:0:1', '2020-08-20 10:24:35');
-INSERT INTO `monitor_log` VALUES (38, 'admin', '创建了系统用户', 'com.unshell.easyshiro.system.controller.ManagerController.insertUser', '参数内容涉及隐私部分', 21, '0:0:0:0:0:0:0:1', '2020-08-20 10:30:43');
-INSERT INTO `monitor_log` VALUES (39, 'admin', '退出了系统', 'com.unshell.easyshiro.system.controller.ViewController.logoutSystem', '', 1, '0:0:0:0:0:0:0:1', '2020-08-20 10:31:00');
-INSERT INTO `monitor_log` VALUES (40, 'delete', '登录了系统', 'com.unshell.easyshiro.monitor.controller.LoginController.login', '参数内容涉及隐私部分', 44, '0:0:0:0:0:0:0:1', '2020-08-20 10:32:25');
-INSERT INTO `monitor_log` VALUES (41, 'delete', '更新了系统用户', 'com.unshell.easyshiro.system.controller.ManagerController.resetPassword', ' managerId: \"3\"', 17, '0:0:0:0:0:0:0:1', '2020-08-20 10:33:16');
-INSERT INTO `monitor_log` VALUES (42, 'delete', '退出了系统', 'com.unshell.easyshiro.system.controller.ViewController.logoutSystem', '', 0, '0:0:0:0:0:0:0:1', '2020-08-20 10:33:19');
-INSERT INTO `monitor_log` VALUES (43, 'delete', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu', ' menu: \"Menu(menuId=2101, parentId=21, name=查看角色, url=, icon=, perms=role:view, sort=1, type=1, createTime=null, open=true, disabled=null)\"', 24, '0:0:0:0:0:0:0:1', '2020-08-20 14:10:42');
-INSERT INTO `monitor_log` VALUES (44, 'delete', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu', ' menu: \"Menu(menuId=2002, parentId=20, name=创建用户, url=, icon=, perms=manager:add, sort=2, type=1, createTime=null, open=true, disabled=null)\"', 18, '0:0:0:0:0:0:0:1', '2020-08-20 14:10:52');
-INSERT INTO `monitor_log` VALUES (45, 'delete', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu', ' menu: \"Menu(menuId=2003, parentId=20, name=更新用户, url=, icon=, perms=manager:update, sort=3, type=1, createTime=null, open=true, disabled=null)\"', 14, '0:0:0:0:0:0:0:1', '2020-08-20 14:11:03');
-INSERT INTO `monitor_log` VALUES (46, 'delete', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu', ' menu: \"Menu(menuId=2102, parentId=21, name=创建角色, url=, icon=, perms=role:add, sort=2, type=1, createTime=null, open=true, disabled=null)\"', 15, '0:0:0:0:0:0:0:1', '2020-08-20 14:11:10');
-INSERT INTO `monitor_log` VALUES (47, 'delete', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu', ' menu: \"Menu(menuId=2103, parentId=21, name=更新角色, url=, icon=, perms=role:update, sort=3, type=1, createTime=null, open=true, disabled=null)\"', 15, '0:0:0:0:0:0:0:1', '2020-08-20 14:11:15');
-INSERT INTO `monitor_log` VALUES (48, 'delete', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu', ' menu: \"Menu(menuId=2202, parentId=22, name=创建菜单, url=, icon=, perms=menu:add, sort=2, type=1, createTime=null, open=true, disabled=null)\"', 12, '0:0:0:0:0:0:0:1', '2020-08-20 14:11:25');
-INSERT INTO `monitor_log` VALUES (49, 'delete', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu', ' menu: \"Menu(menuId=2203, parentId=22, name=更新菜单, url=, icon=, perms=menu:edit, sort=3, type=1, createTime=null, open=true, disabled=null)\"', 14, '0:0:0:0:0:0:0:1', '2020-08-20 14:11:31');
-INSERT INTO `monitor_log` VALUES (50, 'delete', '更新了菜单', 'com.unshell.easyshiro.system.controller.MenuController.updateMenu', ' menu: \"Menu(menuId=2203, parentId=22, name=更新菜单, url=, icon=, perms=menu:update, sort=3, type=1, createTime=null, open=true, disabled=null)\"', 14, '0:0:0:0:0:0:0:1', '2020-08-20 14:11:40');
-INSERT INTO `monitor_log` VALUES (51, 'delete', '创建了菜单', 'com.unshell.easyshiro.system.controller.MenuController.addMenu', ' menu: \"Menu(menuId=2105, parentId=21, name=权限分配, url=, icon=, perms=role:perms, sort=5, type=1, createTime=Thu Aug 20 14:15:34 CST 2020, open=true, disabled=null)\"', 14, '0:0:0:0:0:0:0:1', '2020-08-20 14:15:34');
-INSERT INTO `monitor_log` VALUES (52, 'delete', '删除了系统用户', 'com.unshell.easyshiro.system.controller.ManagerController.deleteUser', ' id: null', 11, '0:0:0:0:0:0:0:1', '2020-08-20 14:29:44');
-INSERT INTO `monitor_log` VALUES (53, 'delete', '删除了系统用户', 'com.unshell.easyshiro.system.controller.ManagerController.deleteUser', ' id: \"3\"', 22, '0:0:0:0:0:0:0:1', '2020-08-20 14:31:24');
-INSERT INTO `monitor_log` VALUES (54, 'delete', '退出了系统', 'com.unshell.easyshiro.system.controller.ViewController.logoutSystem', '', 1, '0:0:0:0:0:0:0:1', '2020-08-20 14:31:46');
-INSERT INTO `monitor_log` VALUES (55, 'admin', '登录了系统', 'com.unshell.easyshiro.monitor.controller.LoginController.login', '参数内容涉及隐私部分', 50, '0:0:0:0:0:0:0:1', '2020-08-20 14:31:53');
-INSERT INTO `monitor_log` VALUES (56, 'admin', '删除了系统用户', 'com.unshell.easyshiro.system.controller.ManagerController.deleteUser', ' id: \"1\"', 7, '0:0:0:0:0:0:0:1', '2020-08-20 14:38:46');
-INSERT INTO `monitor_log` VALUES (57, 'admin', '删除了系统用户', 'com.unshell.easyshiro.system.controller.ManagerController.deleteUser', ' id: \"2\"', 7, '0:0:0:0:0:0:0:1', '2020-08-20 14:39:32');
-INSERT INTO `monitor_log` VALUES (58, 'admin', '删除了字典组', 'com.unshell.easyshiro.system.controller.DictionaryController.groupDelete', ' dictId: \"57\"', 20, '0:0:0:0:0:0:0:1', '2020-08-20 14:55:39');
-INSERT INTO `monitor_log` VALUES (59, 'admin', '创建了字典', 'com.unshell.easyshiro.system.controller.DictionaryController.dictAdd', ' dictionary: Dictionary(dictId=68, groupId=null, dictName=字典组测试, sign=null, dictKey=test, dictValue=null, isGroup=true, sort=2, remark=null)', 12, '0:0:0:0:0:0:0:1', '2020-08-20 14:56:10');
-INSERT INTO `monitor_log` VALUES (60, 'admin', '创建了字典', 'com.unshell.easyshiro.system.controller.DictionaryController.dictAdd', ' dictionary: Dictionary(dictId=69, groupId=68, dictName=第一项, sign=test&first, dictKey=first, dictValue=10, isGroup=false, sort=1, remark=)', 27, '0:0:0:0:0:0:0:1', '2020-08-20 14:57:22');
-INSERT INTO `monitor_log` VALUES (61, 'admin', '创建了字典项', 'com.unshell.easyshiro.system.controller.DictionaryController.dictDelete', ' dictId: \"[69]\"', 12, '0:0:0:0:0:0:0:1', '2020-08-20 14:57:31');
-INSERT INTO `monitor_log` VALUES (62, 'admin', '创建了字典', 'com.unshell.easyshiro.system.controller.DictionaryController.dictAdd', ' dictionary: Dictionary(dictId=70, groupId=68, dictName=第一项, sign=test&first, dictKey=first, dictValue=1230, isGroup=false, sort=1, remark=)', 23, '0:0:0:0:0:0:0:1', '2020-08-20 15:00:20');
-INSERT INTO `monitor_log` VALUES (63, 'admin', '删除了字典组', 'com.unshell.easyshiro.system.controller.DictionaryController.groupDelete', ' dictId: \"68\"', 17, '0:0:0:0:0:0:0:1', '2020-08-20 15:00:23');
-INSERT INTO `monitor_log` VALUES (64, 'admin', '创建了字典', 'com.unshell.easyshiro.system.controller.DictionaryController.dictAdd', ' dictionary: Dictionary(dictId=71, groupId=null, dictName=阿大, sign=null, dictKey=123, dictValue=null, isGroup=true, sort=1, remark=null)', 24, '0:0:0:0:0:0:0:1', '2020-08-20 15:01:41');
-INSERT INTO `monitor_log` VALUES (65, 'admin', '删除了字典组', 'com.unshell.easyshiro.system.controller.DictionaryController.groupDelete', ' dictId: \"71\"', 18, '0:0:0:0:0:0:0:1', '2020-08-20 15:01:47');
-INSERT INTO `monitor_log` VALUES (66, 'admin', '创建了字典', 'com.unshell.easyshiro.system.controller.DictionaryController.dictAdd', ' dictionary: Dictionary(dictId=72, groupId=null, dictName=阿大, sign=null, dictKey=123, dictValue=null, isGroup=true, sort=1, remark=null)', 24, '0:0:0:0:0:0:0:1', '2020-08-20 15:02:17');
-INSERT INTO `monitor_log` VALUES (67, 'admin', '删除了字典组', 'com.unshell.easyshiro.system.controller.DictionaryController.groupDelete', ' dictId: \"72\"', 17, '0:0:0:0:0:0:0:1', '2020-08-20 15:02:22');
-INSERT INTO `monitor_log` VALUES (68, 'admin', '创建了字典', 'com.unshell.easyshiro.system.controller.DictionaryController.dictAdd', ' dictionary: Dictionary(dictId=73, groupId=null, dictName=阿大, sign=null, dictKey=qwe, dictValue=null, isGroup=true, sort=1, remark=null)', 22, '0:0:0:0:0:0:0:1', '2020-08-20 15:03:37');
-INSERT INTO `monitor_log` VALUES (69, 'admin', '删除了字典组', 'com.unshell.easyshiro.system.controller.DictionaryController.groupDelete', ' dictId: \"73\"', 16, '0:0:0:0:0:0:0:1', '2020-08-20 15:03:44');
-INSERT INTO `monitor_log` VALUES (70, 'admin', '创建了字典', 'com.unshell.easyshiro.system.controller.DictionaryController.dictAdd', ' dictionary: Dictionary(dictId=74, groupId=null, dictName=搜索测试, sign=null, dictKey=source, dictValue=null, isGroup=true, sort=1, remark=null)', 10, '0:0:0:0:0:0:0:1', '2020-08-20 15:04:37');
-INSERT INTO `monitor_log` VALUES (71, 'admin', '创建了字典', 'com.unshell.easyshiro.system.controller.DictionaryController.dictAdd', ' dictionary: Dictionary(dictId=75, groupId=74, dictName=第一项, sign=source&qweuiyi, dictKey=qweuiyi, dictValue=asda , isGroup=false, sort=1, remark=)', 37, '0:0:0:0:0:0:0:1', '2020-08-20 15:08:28');
-INSERT INTO `monitor_log` VALUES (72, 'admin', '创建了字典', 'com.unshell.easyshiro.system.controller.DictionaryController.dictAdd', ' dictionary: Dictionary(dictId=76, groupId=74, dictName=第二项, sign=source&onhu, dictKey=onhu, dictValue=80, isGroup=false, sort=2, remark=)', 10, '0:0:0:0:0:0:0:1', '2020-08-20 15:08:42');
-INSERT INTO `monitor_log` VALUES (73, 'admin', '删除了字典组', 'com.unshell.easyshiro.system.controller.DictionaryController.groupDelete', ' dictId: \"74\"', 22, '0:0:0:0:0:0:0:1', '2020-08-20 15:14:03');
-INSERT INTO `monitor_log` VALUES (74, 'admin', '创建了字典', 'com.unshell.easyshiro.system.controller.DictionaryController.dictAdd', ' dictionary: Dictionary(dictId=77, groupId=1, dictName=版权, sign=system&copyright, dictKey=copyright, dictValue=easyweb.vip, isGroup=false, sort=2, remark=后台框架版权)', 13, '0:0:0:0:0:0:0:1', '2020-08-20 15:17:12');
-INSERT INTO `monitor_log` VALUES (75, 'admin', '登录了系统', 'com.unshell.easyshiro.monitor.controller.LoginController.login', '参数内容涉及隐私部分', 85, '0:0:0:0:0:0:0:1', '2020-08-20 15:50:08');
-INSERT INTO `monitor_log` VALUES (76, 'admin', '登录了系统', 'com.unshell.easyshiro.monitor.controller.LoginController.login', '参数内容涉及隐私部分', 101, '0:0:0:0:0:0:0:1', '2020-09-07 15:59:36');
-INSERT INTO `monitor_log` VALUES (77, 'admin', '登录了系统', 'com.unshell.easyshiro.monitor.controller.LoginController.login', '参数内容涉及隐私部分', 99, '0:0:0:0:0:0:0:1', '2020-09-07 16:20:12');
-INSERT INTO `monitor_log` VALUES (78, 'admin', '重置了系统用户密码', 'com.unshell.easyshiro.system.controller.ManagerController.resetPassword', ' managerId: \"1\"', 21, '0:0:0:0:0:0:0:1', '2020-09-07 16:20:25');
-INSERT INTO `monitor_log` VALUES (79, 'admin', '重置了系统用户密码', 'com.unshell.easyshiro.system.controller.ManagerController.resetPassword', ' managerId: \"2\"', 19, '0:0:0:0:0:0:0:1', '2020-09-07 16:20:35');
-INSERT INTO `monitor_log` VALUES (80, 'admin', '退出了系统', 'com.unshell.easyshiro.system.controller.ViewController.logoutSystem', '', 1, '0:0:0:0:0:0:0:1', '2020-09-07 16:21:03');
-INSERT INTO `monitor_log` VALUES (81, 'admin', '登录了系统', 'com.unshell.easyshiro.monitor.controller.LoginController.login', '参数内容涉及隐私部分', 24, '0:0:0:0:0:0:0:1', '2020-09-07 16:21:12');
-INSERT INTO `monitor_log` VALUES (82, '', '退出了系统', 'com.unshell.easyshiro.system.controller.ViewController.logoutSystem', '', 8, '0:0:0:0:0:0:0:1', '2020-09-07 17:31:23');
-INSERT INTO `monitor_log` VALUES (83, 'admin', '登录了系统', 'com.unshell.easyshiro.monitor.controller.LoginController.login', '参数内容涉及隐私部分', 64, '0:0:0:0:0:0:0:1', '2020-09-07 17:31:29');
-INSERT INTO `monitor_log` VALUES (84, '', '退出了系统', 'com.unshell.easyshiro.system.controller.ViewController.logoutSystem', '', 7, '0:0:0:0:0:0:0:1', '2020-09-07 17:46:04');
-INSERT INTO `monitor_log` VALUES (85, 'admin', '登录了系统', 'com.unshell.easyshiro.monitor.controller.LoginController.login', '参数内容涉及隐私部分', 50, '0:0:0:0:0:0:0:1', '2020-09-07 17:46:17');
-INSERT INTO `monitor_log` VALUES (86, 'admin', '退出了系统', 'com.unshell.easyshiro.system.controller.ViewController.logoutSystem', '', 6, '0:0:0:0:0:0:0:1', '2020-09-07 17:50:59');
-INSERT INTO `monitor_log` VALUES (87, 'admin', '登录了系统', 'com.unshell.easyshiro.monitor.controller.LoginController.login', '参数内容涉及隐私部分', 69, '0:0:0:0:0:0:0:1', '2020-09-07 17:51:12');
-INSERT INTO `monitor_log` VALUES (88, 'admin', '退出了系统', 'com.unshell.easyshiro.system.controller.ViewController.logoutSystem', '', 20, '0:0:0:0:0:0:0:1', '2020-09-08 09:19:34');
-INSERT INTO `monitor_log` VALUES (89, 'admin', '登录了系统', 'com.unshell.easyshiro.monitor.controller.LoginController.login', '参数内容涉及隐私部分', 85, '0:0:0:0:0:0:0:1', '2020-09-08 09:19:41');
-INSERT INTO `monitor_log` VALUES (90, 'admin', '退出了系统', 'com.unshell.easyshiro.system.controller.ViewController.logoutSystem', '', 6, '0:0:0:0:0:0:0:1', '2020-09-08 09:22:17');
-INSERT INTO `monitor_log` VALUES (91, 'admin', '登录了系统', 'com.unshell.easyshiro.monitor.controller.LoginController.login', '参数内容涉及隐私部分', 68, '0:0:0:0:0:0:0:1', '2020-09-08 09:22:24');
-INSERT INTO `monitor_log` VALUES (92, 'admin', '退出了系统', 'com.unshell.easyshiro.system.controller.ViewController.logoutSystem', '', 6, '0:0:0:0:0:0:0:1', '2020-09-08 09:24:04');
-INSERT INTO `monitor_log` VALUES (93, 'admin', '登录了系统', 'com.unshell.easyshiro.monitor.controller.LoginController.login', '参数内容涉及隐私部分', 77, '0:0:0:0:0:0:0:1', '2020-09-08 09:24:13');
-INSERT INTO `monitor_log` VALUES (94, 'admin', '退出了系统', 'com.unshell.easyshiro.system.controller.ViewController.logoutSystem', '', 1, '0:0:0:0:0:0:0:1', '2020-09-08 09:27:43');
-INSERT INTO `monitor_log` VALUES (95, 'admin', '登录了系统', 'com.unshell.easyshiro.monitor.controller.LoginController.login', '参数内容涉及隐私部分', 18, '0:0:0:0:0:0:0:1', '2020-09-08 09:27:51');
-INSERT INTO `monitor_log` VALUES (96, 'admin', '更新了系统用户', 'com.unshell.easyshiro.system.controller.ManagerController.updateUser', ' manager: \"Manager(managerId=1, loginName=null, password=null, nickName=unshell, avatar=null, phone=14777777777, email=1548462908@qq.com, address=null, status=null, signature=null, roleId=1, introduction=null, modifyTime=null, createTime=null)\"', 13, '0:0:0:0:0:0:0:1', '2020-09-08 09:28:48');
-INSERT INTO `monitor_log` VALUES (97, 'admin', '更新了系统用户', 'com.unshell.easyshiro.system.controller.ManagerController.updateUser', ' manager: \"Manager(managerId=2, loginName=null, password=null, nickName=亚历克斯, avatar=null, phone=13777777777, email=alex@qq.com, address=null, status=null, signature=null, roleId=2, introduction=null, modifyTime=null, createTime=null)\"', 12, '0:0:0:0:0:0:0:1', '2020-09-08 09:32:54');
-INSERT INTO `monitor_log` VALUES (98, 'admin', '退出了系统', 'com.unshell.easyshiro.system.controller.ViewController.logoutSystem', '', 6, '0:0:0:0:0:0:0:1', '2020-09-08 09:34:40');
-INSERT INTO `monitor_log` VALUES (99, 'admin', '登录了系统', 'com.unshell.easyshiro.monitor.controller.LoginController.login', '参数内容涉及隐私部分', 47, '0:0:0:0:0:0:0:1', '2020-09-08 09:34:46');
+) ENGINE = InnoDB AUTO_INCREMENT = 203 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '监控日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for monitor_login_log
@@ -183,30 +84,7 @@ CREATE TABLE `monitor_login_log`  (
   `IpAddress` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'IP地址',
   `LoginTime` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '登录日志' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of monitor_login_log
--- ----------------------------
-INSERT INTO `monitor_login_log` VALUES (1, 'admin', 'Windows 10', 'Chrome 80', '127.0.0.1', '2020-08-18 11:44:04');
-INSERT INTO `monitor_login_log` VALUES (2, 'admin', 'Windows 10', 'Chrome 80', '127.0.0.1', '2020-08-19 14:42:06');
-INSERT INTO `monitor_login_log` VALUES (3, 'admin', 'Windows 10', 'Chrome 80', '127.0.0.1', '2020-08-20 09:03:03');
-INSERT INTO `monitor_login_log` VALUES (4, 'admin', 'Windows 10', 'Chrome 80', '127.0.0.1', '2020-08-20 09:11:46');
-INSERT INTO `monitor_login_log` VALUES (5, 'delete', 'Windows 10', 'Chrome 80', '127.0.0.1', '2020-08-20 10:32:25');
-INSERT INTO `monitor_login_log` VALUES (6, 'delete', 'Windows 10', 'Chrome 80', '127.0.0.1', '2020-08-20 10:33:34');
-INSERT INTO `monitor_login_log` VALUES (7, 'admin', 'Windows 10', 'Chrome 80', '127.0.0.1', '2020-08-20 14:31:53');
-INSERT INTO `monitor_login_log` VALUES (8, 'admin', 'Windows 10', 'Chrome 80', '127.0.0.1', '2020-08-20 15:50:08');
-INSERT INTO `monitor_login_log` VALUES (9, 'admin', 'Windows 10', 'Chrome 80', '127.0.0.1', '2020-09-07 15:59:36');
-INSERT INTO `monitor_login_log` VALUES (10, 'admin', 'Windows 10', 'Chrome 80', '127.0.0.1', '2020-09-07 16:20:12');
-INSERT INTO `monitor_login_log` VALUES (11, 'admin', 'Windows 10', 'Chrome 80', '127.0.0.1', '2020-09-07 16:21:12');
-INSERT INTO `monitor_login_log` VALUES (12, 'admin', 'Windows 10', 'Chrome 80', '127.0.0.1', '2020-09-07 17:31:29');
-INSERT INTO `monitor_login_log` VALUES (13, 'admin', 'Windows 10', 'Chrome 80', '127.0.0.1', '2020-09-07 17:46:17');
-INSERT INTO `monitor_login_log` VALUES (14, 'admin', 'Windows 10', 'Chrome 80', '127.0.0.1', '2020-09-07 17:51:12');
-INSERT INTO `monitor_login_log` VALUES (15, 'admin', 'Windows 10', 'Chrome 80', '127.0.0.1', '2020-09-08 09:19:41');
-INSERT INTO `monitor_login_log` VALUES (16, 'admin', 'Windows 10', 'Chrome 80', '127.0.0.1', '2020-09-08 09:22:24');
-INSERT INTO `monitor_login_log` VALUES (17, 'admin', 'Windows 10', 'Chrome 80', '127.0.0.1', '2020-09-08 09:24:13');
-INSERT INTO `monitor_login_log` VALUES (18, 'admin', 'Windows 10', 'Chrome 80', '127.0.0.1', '2020-09-08 09:27:51');
-INSERT INTO `monitor_login_log` VALUES (19, 'admin', 'Windows 10', 'Chrome 80', '127.0.0.1', '2020-09-08 09:34:46');
+) ENGINE = InnoDB AUTO_INCREMENT = 36 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '登录日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for system_dictionary
@@ -223,14 +101,15 @@ CREATE TABLE `system_dictionary`  (
   `Sort` int(11) NOT NULL DEFAULT 0 COMMENT '排序',
   `Remark` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`DictId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 78 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '字典管理' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '字典管理' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of system_dictionary
 -- ----------------------------
-INSERT INTO `system_dictionary` VALUES (1, NULL, '系统', 'system', 'system', NULL, b'1', 1, NULL);
-INSERT INTO `system_dictionary` VALUES (67, 1, '版本', 'system&release', 'release', '3.1.8', b'0', 1, '系统版本号');
-INSERT INTO `system_dictionary` VALUES (77, 1, '版权', 'system&copyright', 'copyright', 'easyweb.vip', b'0', 2, '后台框架版权');
+INSERT INTO `system_dictionary` VALUES (1, NULL, '短信模板', 'sms', 'sms', NULL, b'1', 1, NULL);
+INSERT INTO `system_dictionary` VALUES (2, 1, '注册验证码', 'sms#register', 'register', '您正在注册，验证码是：%s，请在30分钟之内完成验证，请勿泄露，感谢您的支持。', b'0', 1, '注册操作时的验证码');
+INSERT INTO `system_dictionary` VALUES (3, 1, '修改密码', 'sms#reset', 'reset', '您正在修改密码，验证码是：%s，请在30分钟之内完成验证，请勿泄露，感谢您的支持。', b'0', 2, '修改密码时的验证码');
+INSERT INTO `system_dictionary` VALUES (4, 1, '登录', 'sms#login', 'login', '您的验证码是：%s，请在3分钟内完成验证', b'0', 3, '登录账户时的验证码');
 
 -- ----------------------------
 -- Table structure for system_manager
@@ -253,12 +132,12 @@ CREATE TABLE `system_manager`  (
   `CreateTime` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `LastLoginTime` datetime(0) NULL DEFAULT NULL COMMENT '最后登入时间',
   PRIMARY KEY (`ManagerId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统用户' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统用户' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of system_manager
 -- ----------------------------
-INSERT INTO `system_manager` VALUES (1, 'admin', '0ce3e25de5134d7b0ddfd94a49675bf5', 'unshell', 'boy-01.jpg', '14777777777', '1548462908@qq.com', '常山真定', 0, '7ec9f640c0f349aeb046490f15d7a919', 1, '我相信所有坚韧不拔的努力，迟早会得来好报酬。', '2020-07-17 11:24:12', '2020-07-08 17:06:49', NULL);
+INSERT INTO `system_manager` VALUES (1, 'admin', 'a95e67b189ae40489bea1586f7c0d5a7', 'unshell', 'boy-01.jpg', '14777777777', '1548462908@qq.com', '常山真定', 0, '9e685a8ecf824253a2cf2977fac8c1ba', 1, '我相信所有坚韧不拔的努力，迟早会得来好报酬。', '2020-07-17 11:24:12', '2020-07-08 17:06:49', NULL);
 INSERT INTO `system_manager` VALUES (2, 'alex', 'bc46f76ad036f83b0685cbf7b12dd419', '亚历克斯', NULL, '13777777777', 'alex@qq.com', NULL, 0, '56cd87f0d04947028649b3199a47abe0', 2, NULL, '2020-08-20 10:24:35', '2020-07-17 10:38:06', NULL);
 
 -- ----------------------------
@@ -292,7 +171,6 @@ INSERT INTO `system_menu` VALUES (23, 2, '字典管理', '/system/dictionary', '
 INSERT INTO `system_menu` VALUES (30, 3, '登入日志', '/monitor/login/log', '', '', 1, 0, '2020-07-09 12:54:18');
 INSERT INTO `system_menu` VALUES (31, 3, '操作日志', '/monitor/log', '', '', 2, 0, '2020-07-09 16:49:06');
 INSERT INTO `system_menu` VALUES (32, 3, '定时任务', '/monitor/job', '', '', 3, 0, '2020-07-09 17:08:48');
-INSERT INTO `system_menu` VALUES (33, 3, '调度日志', '/monitor/job/log', '', '', 4, 0, '2020-07-09 17:09:01');
 INSERT INTO `system_menu` VALUES (34, 3, '代码生成', '/monitor/generate', '', '', 5, 0, '2020-08-18 17:38:49');
 INSERT INTO `system_menu` VALUES (2001, 20, '查看用户', '', '', 'manager:view', 1, 1, '2020-07-08 13:28:13');
 INSERT INTO `system_menu` VALUES (2002, 20, '创建用户', '', '', 'manager:add', 2, 1, '2020-07-08 13:28:47');
@@ -321,7 +199,7 @@ CREATE TABLE `system_role`  (
   `ModifyTime` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
   `CreateTime` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`RoleId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统角色' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统角色' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of system_role
@@ -341,6 +219,8 @@ CREATE TABLE `system_role_menu`  (
 -- ----------------------------
 -- Records of system_role_menu
 -- ----------------------------
+INSERT INTO `system_role_menu` VALUES (2, 1);
+INSERT INTO `system_role_menu` VALUES (2, 10);
 INSERT INTO `system_role_menu` VALUES (2, 3);
 INSERT INTO `system_role_menu` VALUES (2, 31);
 INSERT INTO `system_role_menu` VALUES (1, 1);
@@ -368,7 +248,6 @@ INSERT INTO `system_role_menu` VALUES (1, 3);
 INSERT INTO `system_role_menu` VALUES (1, 30);
 INSERT INTO `system_role_menu` VALUES (1, 31);
 INSERT INTO `system_role_menu` VALUES (1, 32);
-INSERT INTO `system_role_menu` VALUES (1, 33);
 INSERT INTO `system_role_menu` VALUES (1, 34);
 
 SET FOREIGN_KEY_CHECKS = 1;

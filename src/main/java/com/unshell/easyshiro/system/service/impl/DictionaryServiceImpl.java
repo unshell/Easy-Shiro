@@ -7,9 +7,11 @@ import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.unshell.easyshiro.common.entity.QueryRequest;
+import com.unshell.easyshiro.common.service.RedisService;
 import com.unshell.easyshiro.system.entity.Dictionary;
 import com.unshell.easyshiro.system.mapper.DictionaryMapper;
 import com.unshell.easyshiro.system.service.IDictionaryService;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -20,8 +22,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Dictionary> implements IDictionaryService {
+    private final RedisService redisService;
+
     /**
      * 查询字典项分页信息
      *
@@ -49,7 +54,8 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
     /**
      * 查询字典组信息
      *
-     * @return
+     * @param dictionary
+     * @return List
      */
     @Override
     public List<Dictionary> queryDictionaryGroupList(Dictionary dictionary) {
@@ -58,6 +64,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
             wrapper.like(Dictionary::getDictName, dictionary.getDictName());
         }
         wrapper.eq(Dictionary::getIsGroup, true);
+        wrapper.orderByDesc(Dictionary::getSort);
         return this.baseMapper.selectList(wrapper);
     }
 
@@ -65,7 +72,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
      * 根据字典键查询字典值
      *
      * @param sign 字典键
-     * @return
+     * @return Dictionary
      */
     @Override
     public Dictionary queryDictionary(String sign, Boolean isGroup) {
@@ -82,7 +89,7 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
      * 根据字典组键查询所属字典项集合
      *
      * @param groupKey 字典键
-     * @return
+     * @return Map
      */
     @Override
     public Map queryDictionaryMap(String groupKey) {
@@ -100,12 +107,15 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
     /**
      * 检查重复Key
      *
-     * @param dictKey
-     * @return
+     * @param sign
+     * @return boolean
      */
     @Override
-    public boolean hasDuplicateKey(String dictKey) {
-        return this.baseMapper.hasDuplicateKey(dictKey);
+    public boolean hasDuplicateKey(String sign) {
+        LambdaQueryWrapper<Dictionary> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Dictionary::getSign, sign);
+        boolean hasKey = this.baseMapper.selectCount(wrapper) > 0 ? true : false;
+        return hasKey;
     }
 
     /**
@@ -117,12 +127,14 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
     @Transactional
     public void insertDictionary(Dictionary dictionary) {
         if (dictionary.getGroupId() == null) {
-            Assert.isTrue(!hasDuplicateKey(dictionary.getDictKey()), "存在重复字典组");
+            Assert.isTrue(!this.hasDuplicateKey(dictionary.getDictKey()), "存在相同字典组");
+            dictionary.setSign(dictionary.getDictKey());
             dictionary.setIsGroup(true);
         } else {
-            Dictionary group = this.baseMapper.selectById(dictionary.getGroupId());
-            dictionary.setSign(group.getDictKey() + StringPool.AMPERSAND + dictionary.getDictKey());
-            Assert.isTrue(!hasDuplicateKey(dictionary.getSign()), "该字典组中存在相同字典键");
+            Dictionary group = this.getById(dictionary.getGroupId());
+            Assert.notNull(group, "字典组异常");
+            dictionary.setSign(group.getDictKey() + StringPool.HASH + dictionary.getDictKey());
+            Assert.isTrue(!this.hasDuplicateKey(dictionary.getSign()), "该字典组中存在相同字典键");
             dictionary.setIsGroup(false);
         }
         this.save(dictionary);
@@ -136,36 +148,9 @@ public class DictionaryServiceImpl extends ServiceImpl<DictionaryMapper, Diction
     @Override
     @Transactional
     public void updateDictionary(Dictionary dictionary) {
-        if (dictionary.getDictId() != null) {
-            dictionary.setDictKey(null);
-            this.baseMapper.updateById(dictionary);
-        } else {
-            LambdaQueryWrapper<Dictionary> wrapper = new LambdaQueryWrapper<>();
-            wrapper.eq(Dictionary::getDictKey, dictionary.getDictKey());
-            this.baseMapper.update(dictionary, wrapper);
-        }
-    }
-
-    /**
-     * 更新字典集合
-     *
-     * @param group
-     * @param map
-     */
-    @Override
-    public void updateDictionaryMap(Dictionary group, Map<String, String> map) {
-        Map<String, Object> dictMap = this.queryDictionaryMap(group.getDictKey());
-
-        map.forEach((key, value) -> {
-            if (dictMap.containsKey(key)) {
-                this.updateDictionary(new Dictionary(null, key, value));
-            } else {
-                Dictionary dictionary = new Dictionary(null, key, value);
-                dictionary.setGroupId(group.getDictId());
-                dictionary.setSign(group.getDictKey() + StringPool.AMPERSAND + dictionary.getDictKey());
-                this.insertDictionary(dictionary);
-            }
-        });
+        dictionary.setDictKey(null);
+        dictionary.setSign(null);
+        this.baseMapper.updateById(dictionary);
     }
 
     /**

@@ -65,14 +65,6 @@ public interface IDictionaryService extends IService<Dictionary> {
     void updateDictionary(Dictionary dictionary);
 
     /**
-     * 更新字典集合
-     *
-     * @param group
-     * @param map
-     */
-    void updateDictionaryMap(Dictionary group, Map<String, String> map);
-
-    /**
      * 删除字典
      *
      * @param dictId 主键

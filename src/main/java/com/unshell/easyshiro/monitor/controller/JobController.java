@@ -6,6 +6,8 @@ import com.unshell.easyshiro.common.controller.BaseController;
 import com.unshell.easyshiro.common.entity.EasyResponse;
 import com.unshell.easyshiro.common.entity.QueryRequest;
 import com.unshell.easyshiro.monitor.entity.Job;
+import com.unshell.easyshiro.monitor.entity.JobLog;
+import com.unshell.easyshiro.monitor.service.IJobLogService;
 import com.unshell.easyshiro.monitor.service.IJobService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import javax.validation.constraints.NotBlank;
 @RequiredArgsConstructor
 public class JobController extends BaseController {
     private final IJobService jobService;
+    private final IJobLogService jobLogService;
 
     /**
      * 任务分页数据
@@ -88,5 +91,17 @@ public class JobController extends BaseController {
     public EasyResponse resumeJob(@NotBlank(message = "任务编号不能为空") @PathVariable String jobId) {
         jobService.resume(jobId);
         return new EasyResponse().success().message("任务已恢复");
+    }
+
+    /**
+     * 任务日志分页数据
+     *
+     * @param request
+     * @param jobLog
+     */
+    @GetMapping("log/page")
+    public EasyResponse jobLogPage(QueryRequest request, JobLog jobLog) {
+        IPage<JobLog> page = jobLogService.findJobLogPage(request, jobLog);
+        return new EasyResponse().table(page);
     }
 }

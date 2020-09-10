@@ -39,14 +39,6 @@ public class ViewController extends BaseController {
     }
 
     /**
-     * 任务调度日志视图
-     */
-    @GetMapping("/monitor/job/log")
-    public String jobLogView() {
-        return "views/monitor/job_log";
-    }
-
-    /**
      * 代码生成视图
      */
     @GetMapping("/monitor/generate")

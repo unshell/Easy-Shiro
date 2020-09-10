@@ -85,7 +85,6 @@
         </div>
     </div>
 </div>
-
 <!-- 字典组工具栏 -->
 <script type="text/html" id="groupToolbar">
     <a class="layui-btn layui-btn-sm icon-btn" lay-event="add">
@@ -98,7 +97,6 @@
         <i class="layui-icon">&#xe640;</i>删除
     </a>
 </script>
-
 <!-- 字典组表单弹窗 -->
 <script type="text/html" id="groupEditDialog">
     <form id="groupEditForm" lay-filter="groupEditForm" class="layui-form model-form" autocomplete="off">
@@ -130,13 +128,11 @@
         </div>
     </form>
 </script>
-
 <!-- 字典项表格操作列 -->
 <script type="text/html" id="dictTool">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-
 <!-- 字典项工具栏 -->
 <script type="text/html" id="dictToolbar">
     <a lay-event="add" class="layui-btn layui-btn-sm icon-btn">
@@ -146,7 +142,6 @@
         <i class="layui-icon">&#xe640;</i>删除
     </a>
 </script>
-
 <!-- 字典项表单弹窗 -->
 <script type="text/html" id="dictEditDialog">
     <form id="dictEditForm" lay-filter="dictEditForm" class="layui-form model-form">
@@ -209,7 +204,7 @@
             toolbar: '#groupToolbar',
             defaultToolbar: [],
             cols: [[
-                {type: 'numbers', title: '#'},
+                {type: 'numbers'},
                 {field: 'dictName', title: '字典组名称'}
             ]],
             done: function (res, curr, count) {
@@ -229,7 +224,11 @@
             if (obj.event === 'add') { // 添加
                 showEditGroup();
             } else if (obj.event === 'edit') { // 修改
-                showEditGroup(selObj.data, selObj);
+                if (!selObj) {
+                    layer.msg('未选中字典组', {icon: 2, shade: .3, time: 1500});
+                    return;
+                }
+                showEditGroup(selObj.data);
             } else if (obj.event === 'del') { // 删除
                 groupDel(selObj);
             }
@@ -243,7 +242,7 @@
         });
 
         /* 显示字典组弹窗 */
-        function showEditGroup(mData, obj) {
+        function showEditGroup(mData) {
             admin.open({
                 type: 1,
                 title: (mData ? '修改' : '添加') + '字典',
@@ -262,12 +261,8 @@
                                 layer.close(loadIndex);
                                 if (200 === res.code) {
                                     layer.close(dIndex);
+                                    groupTb.reload();
                                     layer.msg(res.msg, {icon: 1});
-                                    if (obj) {
-                                        obj.update(data.field);
-                                    } else {
-                                        groupTb.reload();
-                                    }
                                 } else {
                                     layer.msg(res.msg, {icon: 2});
                                 }
@@ -322,12 +317,6 @@
                 {field: 'dictValue', title: '字典项值'},
                 {field: 'sort', title: '排序号', sort: true, align: 'center', width: 90, minWidth: 90},
                 {field: 'remark', title: '备注', sort: true},
-                {
-                    title: '创建时间',
-                    templet: '<p>{{layui.util.toDateString(d.createTime)}}</p>',
-                    align: 'center',
-                    sort: true
-                },
                 {title: '操作', toolbar: '#dictTool', align: 'center', width: 120, minWidth: 120}
             ]]
         });
@@ -369,6 +358,7 @@
             admin.open({
                 type: 1,
                 title: (mData ? '修改' : '添加') + '数据字典项',
+                resize: true,
                 content: $('#dictEditDialog').html(),
                 success: function (layero, dIndex) {
                     // 回显表单数据

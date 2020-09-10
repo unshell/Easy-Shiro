@@ -8,31 +8,71 @@
 <!-- 正文开始 -->
 <div class="layui-fluid">
     <div class="layui-card">
-        <div class="layui-card-body">
-            <!-- 表格工具栏 -->
-            <form class="layui-form toolbar" autocomplete="off">
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">Bean 名称:</label>
-                        <div class="layui-input-inline">
-                            <input name="beanName" class="layui-input" placeholder="输入Bean名称"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">方法名称:</label>
-                        <div class="layui-input-inline">
-                            <input name="methodName" class="layui-input" placeholder="输入方法名称"/>
-                        </div>
-                    </div>
-                    <div class="layui-inline">&emsp;
-                        <button class="layui-btn icon-btn" lay-filter="jobSearch" lay-submit>
-                            <i class="layui-icon">&#xe615;</i>搜索
-                        </button>
+        <div class="layui-tab layui-tab-brief" lay-filter="tableTab">
+            <ul class="layui-tab-title">
+                <li class="layui-this">定时任务</li>
+                <li>调度日志</li>
+            </ul>
+            <div class="layui-tab-content">
+                <!-- Tab1 -->
+                <div class="layui-tab-item layui-show">
+                    <div class="layui-card-body">
+                        <!-- 表格工具栏 -->
+                        <form class="layui-form toolbar" autocomplete="off">
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">Bean 名称:</label>
+                                    <div class="layui-input-inline">
+                                        <input name="beanName" class="layui-input" placeholder="输入Bean名称"/>
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">方法名称:</label>
+                                    <div class="layui-input-inline">
+                                        <input name="methodName" class="layui-input" placeholder="输入方法名称"/>
+                                    </div>
+                                </div>
+                                <div class="layui-inline">&emsp;
+                                    <button class="layui-btn icon-btn" lay-filter="jobSearch" lay-submit>
+                                        <i class="layui-icon">&#xe615;</i>搜索
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- 数据表格 -->
+                        <table id="jobTable" lay-filter="jobTable"></table>
                     </div>
                 </div>
-            </form>
-            <!-- 数据表格 -->
-            <table id="jobTable" lay-filter="jobTable"></table>
+                <!-- Tab2 -->
+                <div class="layui-tab-item">
+                    <div class="layui-card-body">
+                        <!-- 表格工具栏 -->
+                        <form class="layui-form toolbar" autocomplete="off">
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">Bean 名称:</label>
+                                    <div class="layui-input-inline">
+                                        <input name="beanName" class="layui-input" placeholder="输入Bean名称"/>
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">方法名称:</label>
+                                    <div class="layui-input-inline">
+                                        <input name="methodName" class="layui-input" placeholder="输入方法名称"/>
+                                    </div>
+                                </div>
+                                <div class="layui-inline">&emsp;
+                                    <button class="layui-btn icon-btn" lay-filter="jobLogSearch" lay-submit>
+                                        <i class="layui-icon">&#xe615;</i>搜索
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- 数据表格 -->
+                        <table id="jobLogTable" lay-filter="jobLogTable"></table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -103,15 +143,16 @@
 </script>
 <body th:include="layout/common::javascript"></body>
 <script type="text/javascript" data-th-inline="none">
-    layui.use(['layer', 'form', 'table', 'util', 'admin', 'dropdown'], function () {
+    layui.use(['layer', 'element', 'form', 'table', 'util', 'admin', 'dropdown'], function () {
         var $ = layui.jquery;
         var layer = layui.layer;
+        var element = layui.element;
         var form = layui.form;
         var table = layui.table;
         var admin = layui.admin;
 
-        /* 渲染表格 */
-        var insTb = table.render({
+        /* 渲染表格(任务) */
+        var jobTb = table.render({
             elem: '#jobTable',
             url: '/job/page',
             page: true,
@@ -144,7 +185,7 @@
 
         /* 表格搜索 */
         form.on('submit(jobSearch)', function (data) {
-            insTb.reload({where: data.field, page: {curr: 1}});
+            jobTb.reload({where: data.field, page: {curr: 1}});
             return false;
         });
 
@@ -192,7 +233,7 @@
                                 if (200 === res.code) {
                                     layer.close(dIndex);
                                     layer.msg(res.msg, {icon: 1});
-                                    insTb.reload({page: {curr: 1}});
+                                    jobTb.reload({page: {curr: 1}});
                                 } else {
                                     layer.msg(res.msg, {icon: 2});
                                 }
@@ -221,7 +262,7 @@
                         layer.close(loadIndex);
                         if (200 === res.code) {
                             layer.msg(res.msg, {icon: 1});
-                            insTb.reload({page: {curr: 1}});
+                            jobTb.reload({page: {curr: 1}});
                         } else {
                             layer.msg(res.msg, {icon: 2});
                         }
@@ -246,7 +287,7 @@
                         layer.close(loadIndex);
                         if (200 === res.code) {
                             layer.msg(res.msg, {icon: 1});
-                            insTb.reload({page: {curr: 1}});
+                            jobTb.reload({page: {curr: 1}});
                         } else {
                             layer.msg(res.msg, {icon: 2});
                         }
@@ -254,6 +295,52 @@
                 });
             });
         }
+
+        /* 渲染表格(日志) */
+        var logTb = table.render({
+            elem: '#jobLogTable',
+            url: '/job/log/page',
+            page: true,
+            cellMinWidth: 100,
+            cols: [[
+                {type: 'numbers'},
+                {field: 'beanName', title: 'Bean名称'},
+                {field: 'methodName', title: '方法名称'},
+                {field: 'params', title: '方法参数'},
+                {
+                    field: 'times',
+                    title: '耗时',
+                    templet: '<p><span class="layui-badge layui-badge-green">{{d.times}}ms</span></p>'
+                },
+                {
+                    title: '调度状态', templet: function (d) {
+                        return [
+                            '<span class="layui-badge layui-badge-green">成功</span>',
+                            '<span class="layui-badge layui-badge-red">失败</span>'
+                        ][d.status];
+                    }
+                },
+                {field: 'error', title: '错误信息'},
+                {
+                    title: '创建时间',
+                    templet: '<p>{{layui.util.toDateString(d.createTime)}}</p>',
+                    align: 'center',
+                    sort: true
+                }
+            ]]
+        });
+
+        /* 表格搜索 */
+        form.on('submit(jobLogSearch)', function (data) {
+            logTb.reload({where: data.field, page: {curr: 1}});
+            return false;
+        });
+
+        /* 切换时重置表格尺寸 */
+        element.on('tab(tableTab)', function (data) {
+            var tableIds = ['jobTable', 'jobLogTable'];
+            table.resize(tableIds[data.index]);
+        });
     });
 </script>
 </body>

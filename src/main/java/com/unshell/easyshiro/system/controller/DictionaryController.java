@@ -1,8 +1,6 @@
 package com.unshell.easyshiro.system.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.unshell.easyshiro.common.annotation.ControllerEndpoint;
 import com.unshell.easyshiro.common.controller.BaseController;
 import com.unshell.easyshiro.common.entity.EasyResponse;
@@ -47,6 +45,8 @@ public class DictionaryController extends BaseController {
 
     /**
      * 字典组信息
+     *
+     * @param dictionary
      */
     @GetMapping("group")
     public EasyResponse dictionaryGroup(Dictionary dictionary) {
@@ -76,28 +76,6 @@ public class DictionaryController extends BaseController {
     public EasyResponse dictUpdate(Dictionary dictionary) {
         dictionaryService.updateDictionary(dictionary);
         return new EasyResponse().success().message("更新字典成功");
-    }
-
-    /**
-     * 更新字典项配置
-     *
-     * @param groupKey
-     * @param dictJson
-     * @throws JsonProcessingException
-     */
-    @PostMapping("json")
-    public EasyResponse dictUpdate(String dictName, String groupKey, String dictJson) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String, String> map = mapper.readValue(dictJson, Map.class);
-
-        Dictionary group = dictionaryService.queryDictionary(groupKey, true);
-        if (group == null) {
-            group = new Dictionary(dictName, groupKey);
-            group.setSign(groupKey);
-            dictionaryService.insertDictionary(group);
-        }
-        dictionaryService.updateDictionaryMap(group, map);
-        return new EasyResponse().success().data(map);
     }
 
     /**

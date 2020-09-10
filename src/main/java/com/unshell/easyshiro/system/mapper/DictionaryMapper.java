@@ -5,6 +5,4 @@ import com.unshell.easyshiro.system.entity.Dictionary;
 import org.apache.ibatis.annotations.Select;
 
 public interface DictionaryMapper extends BaseMapper<Dictionary> {
-    @Select("SELECT COUNT(*) FROM system_dictionary WHERE Sign = #{dictKey}")
-    boolean hasDuplicateKey(String dictKey);
 }

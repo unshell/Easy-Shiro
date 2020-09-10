@@ -46,6 +46,7 @@ public class GeneratorController extends BaseController {
                 .setGlobalConfig()
                 .setDataSourceConfig(datasource)
                 .setPackageConfig(module)
+//                .setTemplateConfig()
                 .setStrategyConfig(tableNames)
                 .execute();
         return new EasyResponse().success().message("代码已生成");

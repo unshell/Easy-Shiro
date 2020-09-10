@@ -76,7 +76,7 @@
         form.on('submit(loginLogSearch)', function (data) {
             data.field.startDate = null;
             data.field.endDate = null;
-            var searchDate = data.field.dateRange.split(' - ');
+            var searchDate = data.field.dateRange ? data.field.dateRange.split(' - ') : [];
             if (searchDate.length > 0) {
                 data.field.startDate = searchDate[0] + ' 00:00:00';
                 data.field.endDate = searchDate[1] + ' 23:59:59';

@@ -8,6 +8,7 @@ import com.unshell.easyshiro.common.entity.QueryRequest;
 import com.unshell.easyshiro.monitor.entity.JobLog;
 import com.unshell.easyshiro.monitor.mapper.JobLogMapper;
 import com.unshell.easyshiro.monitor.service.IJobLogService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,10 +26,16 @@ public class JobLogServiceImpl extends ServiceImpl<JobLogMapper, JobLog> impleme
      */
     @Override
     public IPage<JobLog> findJobLogPage(QueryRequest request, JobLog jobLog) {
-        QueryWrapper<JobLog> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().orderByDesc(JobLog::getCreateTime);
+        QueryWrapper<JobLog> wrapper = new QueryWrapper<>();
+        if (StringUtils.isNotBlank(jobLog.getBeanName())) {
+            wrapper.lambda().like(JobLog::getBeanName, jobLog.getBeanName());
+        }
+        if (StringUtils.isNotBlank(jobLog.getMethodName())) {
+            wrapper.lambda().like(JobLog::getMethodName, jobLog.getMethodName());
+        }
+        wrapper.lambda().orderByDesc(JobLog::getCreateTime);
         Page<JobLog> page = new Page<>(request.getPage(), request.getLimit());
-        return this.page(page, queryWrapper);
+        return this.page(page, wrapper);
     }
 
     /**

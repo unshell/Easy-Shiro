@@ -5,7 +5,7 @@
 ![https://img.shields.io/badge/shiro-1.4.2-orange.svg?longCache=true&style=flat-square](https://img.shields.io/badge/shiro-1.4.2-orange.svg?longCache=true&style=flat-square)
 ![https://img.shields.io/badge/easyweb-3.1.8-blue.svg?longCache=true&style=flat-square](https://img.shields.io/badge/easyweb-3.1.8-blue.svg?longCache=true&style=flat-square)
 
-Easy-Shiro是一款简单的后台权限管理系统，建议用于个人学习
+Easy-Shiro是一款简单的(iframe)后台权限管理系统，建议用于个人学习
 
 ### 本地部署账号密码：
 
