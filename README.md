@@ -26,3 +26,8 @@ alex | 123456 | 游客
 ├─系统管理
 └─监控调度
 ```
+### 特别声明
+- 后端框架为[SpringBoot](https://spring.io/)、[Mybatis-Plus](https://mybatis.plus/)
+- 权限框架为[Shiro](https://shiro.apache.org/)
+- 前端框架为[EasyWeb](https://eleadmin.com/)，项目中涉及到的代码为压缩版，源代码请自行付费购买
+- 该项目仅用于学习，不建议使用在真实项目中

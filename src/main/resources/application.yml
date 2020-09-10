@@ -27,4 +27,4 @@ mybatis-plus:
 app:
   system: easy shiro
   version: 3.1.8
-  website: easyshiro.system
+  website: https://github.com/unshell/Easy-Shiro
